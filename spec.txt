@@ -1,0 +1,14 @@
+Todo:
+
+- spara statistik över filen men hjälp av en singleton.
+- slå ihop date/time till ett fält.
+- kanske modellerna inte borde innehålla datat, vad händer om data är egna "containers"? Det behöves någon form av
+  on_change event för att hålla modellen updaterad när data ändras.
+- lägg till så man kan välja flera rader och göra copy to clipboard, komma separerat.
+- lägg till stöd för QPluginLoader.
+- Kolla hur man kan använda sig av .pri filer i QT? Verkar vara bra när man kör unit test för att referera till
+  de filer som ingår i projektet.
+- Kontrollera att "open from file" stänger server uppkopplingen.
+- Gå igenom alla hårdkodade strängar och bestäm om de ska kunna lokaliseras eller inte.
+  Om de ska kunna det så lägg till tr("a string").
+- Auto update vid FTP kanske i kombination med Tail?

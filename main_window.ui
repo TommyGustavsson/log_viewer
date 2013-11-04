@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Main_window</class>
+ <widget class="QMainWindow" name="Main_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1085</width>
+    <height>805</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>LogViewer</string>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="margin">
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="full_text_splitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QFrame" name="frame_3">
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="spacing">
+            <number>12</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>4</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>4</number>
+           </property>
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Type filter</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <property name="margin">
+               <number>6</number>
+              </property>
+              <item>
+               <widget class="QToolButton" name="info_toolButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>45</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Info</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="toolButtonStyle">
+                 <enum>Qt::ToolButtonTextOnly</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="warn_toolButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>45</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>Warning</string>
+                </property>
+                <property name="text">
+                 <string>Warn</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="toolButtonStyle">
+                 <enum>Qt::ToolButtonTextOnly</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="error_toolButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>45</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>Error</string>
+                </property>
+                <property name="text">
+                 <string>Error</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <property name="toolButtonStyle">
+                 <enum>Qt::ToolButtonTextOnly</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="fatal_toolButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>45</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Fatal</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="toolButtonStyle">
+                 <enum>Qt::ToolButtonTextOnly</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Text filter</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_11">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <property name="margin">
+               <number>6</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="filter_lineEdit">
+                <property name="minimumSize">
+                 <size>
+                  <width>150</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="placeholderText">
+                 <string>Enter text to filter</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="index_lineEdit">
+                <property name="placeholderText">
+                 <string>Index</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="module_lineEdit">
+                <property name="placeholderText">
+                 <string>Module</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="file_lineEdit">
+                <property name="placeholderText">
+                 <string>File</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="filter_pushButton">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="text">
+                 <string>Apply</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="clear_filter_pushButton">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="text">
+                 <string>Clear</string>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+Backspace</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="filter_regex_checkBox">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="text">
+                 <string>Use regex</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="Log_table_view" name="log_tableView">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ContiguousSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+          <property name="horizontalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>20</number>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QGroupBox" name="full_text_groupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Full text</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="margin">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="Log_item_preview_textEdit" name="full_text_textEdit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QCheckBox" name="autoscroll_checkBox">
+         <property name="text">
+          <string>Autoscroll</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1085</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionOpen_File"/>
+    <addaction name="actionPaste_from_Clipboard"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuLog_Window">
+    <property name="title">
+     <string>&amp;Log Window</string>
+    </property>
+    <addaction name="actionAutoscroll"/>
+    <addaction name="action_disable_type_highlight"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_Log_View"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout_QT"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuLog_Window"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="tools_dockWidget">
+   <property name="features">
+    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Tools</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
+     <property name="margin">
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="groupBox_7">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>125</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Neighbors</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="margin">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QListView" name="neighbor_listView">
+          <property name="dragDropMode">
+           <enum>QAbstractItemView::DragOnly</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="tail_pushButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="text">
+           <string>Tail Current File</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="title">
+        <string>FTP</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="margin">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QFrame" name="frame_4">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <property name="spacing">
+            <number>4</number>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="ftpHost_lineEdit">
+             <property name="placeholderText">
+              <string>Host ip-address or name</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="ftpPort_lineEdit">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Port</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <property name="spacing">
+            <number>4</number>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="ftpUser_lineEdit">
+             <property name="minimumSize">
+              <size>
+               <width>60</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>User</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="ftpPassword_lineEdit">
+             <property name="minimumSize">
+              <size>
+               <width>70</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="openFTP_pushButton">
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="text">
+              <string>Connect</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListView" name="ftpFiles_listView"/>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="ftpDownload_progressBar">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="format">
+           <string>%p%</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_6">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>125</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>150</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Network clients</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="margin">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QListView" name="clients_listView"/>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame_9">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="server_port_lineEdit">
+             <property name="placeholderText">
+              <string>Port</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="open_server_pushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="text">
+              <string>Listen</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_5">
+       <property name="title">
+        <string>Highlight</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <property name="margin">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QCheckBox" name="highlight_regex_checkBox">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="text">
+           <string>Use regex</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_2" native="true">
+          <layout class="QGridLayout" name="gridLayout">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="spacing">
+            <number>4</number>
+           </property>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="h1_lineEdit">
+             <property name="placeholderText">
+              <string>&lt;Empty&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="h2_lineEdit">
+             <property name="placeholderText">
+              <string>&lt;Empty&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="h3_lineEdit">
+             <property name="placeholderText">
+              <string>&lt;Empty&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="h4_lineEdit">
+             <property name="placeholderText">
+              <string>&lt;Empty&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="h5_lineEdit">
+             <property name="placeholderText">
+              <string>&lt;Empty&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QPushButton" name="clear_all_highlight_pushButton">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="text">
+              <string>Clear</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="apply_highlight_pushButton">
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="Colored_frame" name="h1_frame">
+             <property name="minimumSize">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="Colored_frame" name="h2_frame">
+             <property name="minimumSize">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="Colored_frame" name="h3_frame">
+             <property name="minimumSize">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="Colored_frame" name="h4_frame">
+             <property name="minimumSize">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="Colored_frame" name="h5_frame">
+             <property name="minimumSize">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionAutoscroll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Autoscroll</string>
+   </property>
+  </action>
+  <action name="actionOpen_File">
+   <property name="text">
+    <string>Open File...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionClear_Log_View">
+   <property name="text">
+    <string>&amp;Clear Log View</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="action_disable_type_highlight">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Disable type highlight</string>
+   </property>
+  </action>
+  <action name="actionAbout_QT">
+   <property name="text">
+    <string>&amp;About QT...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionColor_theme_A">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Color theme A</string>
+   </property>
+  </action>
+  <action name="actionColor_theme_B">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Color theme B</string>
+   </property>
+  </action>
+  <action name="actionColor_theme_C">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Color theme C</string>
+   </property>
+  </action>
+  <action name="actionColor_theme_D">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Color theme D</string>
+   </property>
+  </action>
+  <action name="actionColor_theme_E">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Color theme E</string>
+   </property>
+  </action>
+  <action name="actionEnter_filter">
+   <property name="text">
+    <string>Enter filter</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionPaste_from_Clipboard">
+   <property name="text">
+    <string>Paste from Clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Log_table_view</class>
+   <extends>QTableView</extends>
+   <header>log_table_view.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Log_item_preview_textEdit</class>
+   <extends>QTextEdit</extends>
+   <header>log_item_preview_textedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Colored_frame</class>
+   <extends>QFrame</extends>
+   <header>colored_frame.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>filter_lineEdit</tabstop>
+  <tabstop>index_lineEdit</tabstop>
+  <tabstop>module_lineEdit</tabstop>
+  <tabstop>file_lineEdit</tabstop>
+  <tabstop>fatal_toolButton</tabstop>
+  <tabstop>log_tableView</tabstop>
+  <tabstop>full_text_textEdit</tabstop>
+  <tabstop>autoscroll_checkBox</tabstop>
+  <tabstop>neighbor_listView</tabstop>
+  <tabstop>ftpUser_lineEdit</tabstop>
+  <tabstop>ftpPassword_lineEdit</tabstop>
+  <tabstop>ftpFiles_listView</tabstop>
+  <tabstop>clients_listView</tabstop>
+  <tabstop>server_port_lineEdit</tabstop>
+  <tabstop>h1_lineEdit</tabstop>
+  <tabstop>h2_lineEdit</tabstop>
+  <tabstop>h3_lineEdit</tabstop>
+  <tabstop>h4_lineEdit</tabstop>
+  <tabstop>h5_lineEdit</tabstop>
+  <tabstop>ftpHost_lineEdit</tabstop>
+  <tabstop>ftpPort_lineEdit</tabstop>
+  <tabstop>info_toolButton</tabstop>
+  <tabstop>warn_toolButton</tabstop>
+  <tabstop>error_toolButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>h1_lineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>apply_highlight_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>581</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>717</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>h2_lineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>apply_highlight_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>607</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>717</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>h3_lineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>apply_highlight_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>633</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>717</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>h4_lineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>apply_highlight_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>659</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>717</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>h5_lineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>apply_highlight_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>685</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>717</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>autoscroll_checkBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>actionAutoscroll</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>294</x>
+     <y>750</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>Resources/arrows_north_south.png</file>
+        <file>Resources/downarrow.png</file>
+        <file>Resources/leftarrow.png</file>
+        <file>Resources/rightarrow.png</file>
+        <file>Resources/uparrow.png</file>
+    </qresource>
+    <qresource prefix="/stylesheet">
+        <file>Resources/skin.css</file>
+    </qresource>
+</RCC>
