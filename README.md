@@ -21,3 +21,5 @@ Features
 * Developed in QT 4.7.1
 * C++
 * Coding standard: JSF
+
+Run doxygen in log_viewer folder to create code documentation.
