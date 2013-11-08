@@ -1,0 +1,57 @@
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format}{\section{Log\-\_\-viewer\-:\-:N\-R\-G\-\_\-log\-\_\-format Struct Reference}
+\label{struct_log__viewer_1_1_n_r_g__log__format}\index{Log\-\_\-viewer\-::\-N\-R\-G\-\_\-log\-\_\-format@{Log\-\_\-viewer\-::\-N\-R\-G\-\_\-log\-\_\-format}}
+}
+Inheritance diagram for Log\-\_\-viewer\-:\-:N\-R\-G\-\_\-log\-\_\-format\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{struct_log__viewer_1_1_n_r_g__log__format}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format_aa1c60c8059b20a6f9c958450e9f19a50}{{\bfseries N\-R\-G\-\_\-log\-\_\-format} (const Q\-String origin, Q\-Object $\ast$parent=0)}\label{struct_log__viewer_1_1_n_r_g__log__format_aa1c60c8059b20a6f9c958450e9f19a50}
+
+\item 
+bool \hyperlink{struct_log__viewer_1_1_n_r_g__log__format_a32d9e5e346b1fabce16b8c680de2d4de}{match} (const Q\-String first\-\_\-line) const 
+\item 
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format_a77b2f35c1b5cdd36db1e2c15ef7e97a2}{Q\-String {\bfseries get\-\_\-start\-\_\-seq} () const }\label{struct_log__viewer_1_1_n_r_g__log__format_a77b2f35c1b5cdd36db1e2c15ef7e97a2}
+
+\item 
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format_a51cc946fb782eeb6bed0a8230d6dc634}{Q\-String {\bfseries get\-\_\-stop\-\_\-seq} () const }\label{struct_log__viewer_1_1_n_r_g__log__format_a51cc946fb782eeb6bed0a8230d6dc634}
+
+\item 
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format_a655a48f686373f89b3ea4814a6cf7d49}{Q\-String {\bfseries get\-\_\-description} () const }\label{struct_log__viewer_1_1_n_r_g__log__format_a655a48f686373f89b3ea4814a6cf7d49}
+
+\item 
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format_ab5f59f53dc62cceb39bfd661ca702971}{Q\-String {\bfseries get\-\_\-origin} () const }\label{struct_log__viewer_1_1_n_r_g__log__format_ab5f59f53dc62cceb39bfd661ca702971}
+
+\item 
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format_a3b85740cec7a649f3c053c1ce6e3246d}{Log\-\_\-columns {\bfseries get\-\_\-columns} () const }\label{struct_log__viewer_1_1_n_r_g__log__format_a3b85740cec7a649f3c053c1ce6e3246d}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{struct_log__viewer_1_1_n_r_g__log__format_a32d9e5e346b1fabce16b8c680de2d4de}{\index{Log\-\_\-viewer\-::\-N\-R\-G\-\_\-log\-\_\-format@{Log\-\_\-viewer\-::\-N\-R\-G\-\_\-log\-\_\-format}!match@{match}}
+\index{match@{match}!Log_viewer::NRG_log_format@{Log\-\_\-viewer\-::\-N\-R\-G\-\_\-log\-\_\-format}}
+\subsubsection[{match}]{\setlength{\rightskip}{0pt plus 5cm}bool Log\-\_\-viewer\-::\-N\-R\-G\-\_\-log\-\_\-format\-::match (
+\begin{DoxyParamCaption}
+\item[{const Q\-String}]{first\-\_\-line}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{struct_log__viewer_1_1_n_r_g__log__format_a32d9e5e346b1fabce16b8c680de2d4de}
+This method returns true if we can match the passed line.
+
+A regular expression is used to match the first\-\_\-line. N\-R\-G format expects the line to start with \char`\"{}start of text\char`\"{} 0x02, followed by a date formated like this\-: \begin{DoxyParagraph}{2010-\/09-\/08 12\-:06\-:12,079864}
+
+\end{DoxyParagraph}
+and shall be followed by T\-A\-B char after the date. 
+
+Implements \hyperlink{class_log__viewer_1_1_log__format}{Log\-\_\-viewer\-::\-Log\-\_\-format}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+nrg\-\_\-log\-\_\-format.\-h\end{DoxyCompactItemize}

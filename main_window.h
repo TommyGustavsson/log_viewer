@@ -9,6 +9,7 @@
 
 class QListWidgetItem;
 class QFrame;
+class QUdpSocket;
 
 namespace Ui {
     class Main_window;
@@ -77,7 +78,7 @@ private slots:
     void on_ftp_file_download_progress(qint64 readBytes, qint64 totalBytes);
     void on_ftp_file_downloaded(const QString &file_name);
     void on_ftp_message(const QString &message);
-    void on_ftp_download_canceled();
+    void on_ftp_download_canceled();    
 
 private:
     void closeEvent(QCloseEvent *);

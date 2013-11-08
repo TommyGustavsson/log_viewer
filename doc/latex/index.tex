@@ -1,0 +1,26 @@
+Log\-Viewer is developed to be able to quickly view and analyze log files or content from online log clients.
+
+\begin{DoxyNote}{Note}
+A lot of emphasis has been put on providing a compelling look-\/and-\/feel to the application and to give the user a feeling of not feeling stupid using the application.
+
+One way of doing this is to provide more than one way of doing common tasks such as opening a log file, for example use short-\/cut, menu, toolbar, drag n' drop etc.
+
+Another way is to never popup any dialogs that informs the user that a entered value is out of range or prompts for input. Also make sure to disable all buttons and menus that the end user currently can't use. For example, if the filter input edit is empty the apply filer button is disabled, if the user starts to type the button is enabled. Use placeholder\-Text in all edit fields to inform what's supposed to be entered. Example\-: the filter input has the placeholder\-Text set to \char`\"{}\-Enter text to filter\char`\"{}.
+\end{DoxyNote}
+{\bfseries  The documentation is intended to aid developers of the application, not to provide a user guide to the end-\/user. }
+
+The following sections are describing the implementation in more detail\-:
+\begin{DoxyItemize}
+\item \hyperlink{_g_u_i}{The G\-U\-I}
+\item \hyperlink{_log_manager}{The manager}.
+\item \hyperlink{_log_formats}{Log Formats}
+\end{DoxyItemize}
+
+A goal has been to follow the J\-S\-F Coding Standard (link\-: \hyperlink{}{http\-://www2.\-research.\-att.\-com/$\sim$bs/\-J\-S\-F-\/\-A\-V-\/rules.\-pdf}).
+
+\begin{DoxyAuthor}{Author}
+Tommy Gustavsson 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-x 
+\end{DoxyVersion}

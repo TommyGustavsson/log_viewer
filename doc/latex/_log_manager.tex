@@ -1,0 +1,41 @@
+The \hyperlink{class_log__viewer_1_1_log__manager}{Log\-\_\-manager} puts together the different parts of business logic that ends up acting like an application. The G\-U\-I part is only a visualization of this class.
+
+There are four models that provide access to data\-:
+\begin{DoxyItemize}
+\item \hyperlink{class_log__viewer_1_1_log__items__model}{Log\-\_\-items\-\_\-model}\-: This model contains all log entries and defines the behaviour of such things as color typing, columns, text highlight.
+\item \hyperlink{class_log__viewer_1_1_log__filter__proxy__model}{Log\-\_\-filter\-\_\-proxy\-\_\-model}\-: This model is placed inbetween the Q\-Table\-View and the \hyperlink{class_log__viewer_1_1_log__items__model}{Log\-\_\-items\-\_\-model} to provide filtering. 
+\begin{DoxyCode}
+m\_log\_filter\_proxy\_model->setSourceModel(m\_log\_items\_model);
+\end{DoxyCode}
+
+\item \hyperlink{class_log__viewer_1_1_clients__model}{Clients\-\_\-model}\-: This model holds the set of connected \hyperlink{class_log__viewer_1_1_log__client}{Log\-\_\-clients}.
+\item \hyperlink{class_log__viewer_1_1_file__neighbor__model}{File\-\_\-neighbor\-\_\-model}\-: This models contains all files that are in the same folder as the last opened file.
+\end{DoxyItemize}
+
+These models is accessable from the \hyperlink{class_log__viewer_1_1_log__manager}{Log\-\_\-manager} class. 
+\begin{DoxyCode}
+Log\_items\_model* log\_items\_model()\textcolor{keyword}{ const }\{
+    \textcolor{keywordflow}{return} m\_log\_items\_model;
+\}
+
+Clients\_model* clients\_model()\textcolor{keyword}{ const }\{
+    \textcolor{keywordflow}{return} m\_clients\_model;
+\}
+
+Log\_filter\_proxy\_model* log\_filter\_proxy\_model()\textcolor{keyword}{ const }\{
+    \textcolor{keywordflow}{return} m\_log\_filter\_proxy\_model;
+\}
+
+File\_neighbor\_model* file\_neighbor\_model()\textcolor{keyword}{ const }\{
+    \textcolor{keywordflow}{return} m\_file\_neighbor\_model;
+\}
+\end{DoxyCode}
+
+
+The \hyperlink{class_log__viewer_1_1_log__manager}{Log\-\_\-manager} is accessed through a \hyperlink{class_singleton}{singleton}. 
+\begin{DoxyCode}
+Log\_manager::instance->file\_neighbor\_model()
+\end{DoxyCode}
+
+
+The \hyperlink{class_log__viewer_1_1_log__manager}{Log\-\_\-manager} does not create any threads. Thread safety has not been the focus so far, perhaps this will need to be addressed. There are several operations that potentially can take a lot of time, such as filtering, highlightning, loading from file etc. With the current design the application will need to wait \char`\"{}freeze\char`\"{} until the operations has finished. 

@@ -1,0 +1,63 @@
+A log format is defined as a line of text where its data is separated by a single char or a string. The log format can also have a specific start and stop sequence to indicate start and end of text, this is especially good when using it over the network.
+
+\hyperlink{class_log__viewer_1_1_log__format}{Log\-\_\-format} is the interface for all inherited formats, override the pure virtual functions to implement a new format\-: 
+\begin{DoxyCode}
+\textcolor{keyword}{public}:
+    \textcolor{keyword}{virtual} QString get\_description() \textcolor{keyword}{const} = 0;
+    \textcolor{keyword}{virtual} QString get\_start\_seq() \textcolor{keyword}{const} = 0;
+    \textcolor{keyword}{virtual} QString get\_stop\_seq() \textcolor{keyword}{const} = 0;
+    \textcolor{keyword}{virtual} QString get\_origin() \textcolor{keyword}{const} = 0;
+    \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} match(\textcolor{keyword}{const} QString first\_line) \textcolor{keyword}{const} = 0;
+\textcolor{keyword}{private}:
+    \textcolor{keyword}{virtual} QSharedPointer<Log\_item> create\_log\_item(\textcolor{keyword}{const} QString value, \textcolor{keyword}{const} QString origin) \textcolor{keyword}{const} = 0;
+\end{DoxyCode}
+
+
+As seen above a \hyperlink{class_log__viewer_1_1_log__format}{Log\-\_\-format} class decendant is responsible for the creation of its log items.
+
+\hyperlink{class_log__viewer_1_1_log__item}{Log\-\_\-item} serves as the base class for log items. A log item is used to break down the line of text to its predefined data structure. The data structure will eventually end up as columns in the G\-U\-I. This is a list of the data structure, all access to these private variables is done with a getter. 
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} m\_index;
+Log\_type m\_type;
+QString m\_text;
+QString m\_date;
+QString m\_time;
+QString m\_file;
+QString m\_line;
+QString m\_application;
+QString m\_module;
+QString m\_thread;
+QString m\_origin;
+\end{DoxyCode}
+
+
+In the name of simplicity for the end user all formats shall try to auto-\/sense its format when requested. To ensure a valid match regular expressions are used. 
+\begin{DoxyCode}
+\textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} match(\textcolor{keyword}{const} QString first\_line) \textcolor{keyword}{const} = 0;
+\end{DoxyCode}
+ As an improvemnet the formats could be loaded on demand via Q\-T plugin architecture.
+
+To add a format you need to modify the \hyperlink{class_log__viewer_1_1_log__format__factory}{Log\-\_\-format\-\_\-factor} class. 
+\begin{DoxyCode}
+QSharedPointer<Log\_format> Log\_format\_factory::create(\textcolor{keyword}{const} QString first\_line, \textcolor{keyword}{const} QString origin)
+\{
+    QSharedPointer<Log\_format> format;
+
+    format = QSharedPointer<G3\_log\_format>(\textcolor{keyword}{new} G3\_log\_format(origin));
+    \textcolor{keywordflow}{if}(format->match(first\_line))
+        \textcolor{keywordflow}{return} format;
+
+    format = QSharedPointer<NRG\_log\_format>(\textcolor{keyword}{new} NRG\_log\_format(origin));
+    \textcolor{keywordflow}{if}(format->match(first\_line))
+        \textcolor{keywordflow}{return} format;
+
+    format = QSharedPointer<NRG\_legacy\_log\_format>(\textcolor{keyword}{new} NRG\_legacy\_log\_format(origin));
+    \textcolor{keywordflow}{if}(format->match(first\_line))
+        \textcolor{keywordflow}{return} format;
+
+    \textcolor{comment}{// Add new format here...}
+
+    \textcolor{keywordflow}{return} QSharedPointer<Unknown\_log\_format>(\textcolor{keyword}{new} Unknown\_log\_format());
+\}
+\end{DoxyCode}
+ 

@@ -16,6 +16,7 @@
 #include <QApplication>
 #include <ftp_files_model.h>
 
+
 namespace Log_viewer
 {
 
@@ -29,7 +30,8 @@ namespace Log_viewer
             m_file_parser(NULL),
             m_current_file(""),
             m_current_file_size(0),
-            log_items_empty_signaled(true)
+            log_items_empty_signaled(true),
+            m_socket_type(stNone)
     {
         m_log_items_model = new Log_items_model(this);
         m_clients_model = new Clients_model(this);
@@ -130,6 +132,30 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
+    void Log_manager::create_udp_socket(int port)
+    {
+        m_udp_socket = new QUdpSocket(this);
+        m_udp_socket->bind(port, QUdpSocket::ShareAddress);
+        QSharedPointer<Log_client> client = QSharedPointer<Log_client>(new Log_client(this, m_udp_socket));
+
+        m_clients_model->add(client);
+        connect(client.data(),
+                SIGNAL(log_found(QSharedPointer<Log_item>)),
+                this,
+                SLOT(on_log_found(QSharedPointer<Log_item>)));
+        connect(client.data(),
+                SIGNAL(disconnected(const Log_client*)),
+                this,
+                SLOT(on_client_disconnected(const Log_client*)));
+        connect(client.data(),
+                SIGNAL(format_selected(QSharedPointer<Log_format>)),
+                this,
+                SLOT(on_log_format_selected(QSharedPointer<Log_format>)));
+        emit client_connected(client->get_address());
+    }
+
+    // ----------------------------------------------------------------------------
+
     void Log_manager::on_client_connected()
     {
         QTcpSocket* socket = m_tcp_server->nextPendingConnection();
@@ -171,13 +197,25 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    bool Log_manager::listen(int port)
+    bool Log_manager::listen(int port, Socket_type socket_type)
     {
         close();
         clear_tail();
         clear_log_items();
+        m_socket_type = socket_type;
 
-        bool result = m_tcp_server->listen(QHostAddress::Any, port);
+        bool result = false;
+
+        if (socket_type == stTCP)
+        {
+            result = m_tcp_server->listen(QHostAddress::Any, port);
+        }
+        else
+        {
+            result = true;
+            create_udp_socket(port);
+        }
+
         emit server_listening(result);
 
         return result;
@@ -189,6 +227,14 @@ namespace Log_viewer
     {
         m_tcp_server->close();
         m_clients_model->clear();
+
+        if (m_socket_type == stUDP)
+        {
+            m_udp_socket->close();
+            delete m_udp_socket;
+        }
+
+        m_socket_type = stNone;
 
         emit server_listening(false);
     }

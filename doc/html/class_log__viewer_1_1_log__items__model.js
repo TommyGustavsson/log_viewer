@@ -1,0 +1,25 @@
+var class_log__viewer_1_1_log__items__model =
+[
+    [ "Color_list", "class_log__viewer_1_1_log__items__model.html#a1775182799f950e0430d9431a2acc098", null ],
+    [ "Highlight_text_pair", "class_log__viewer_1_1_log__items__model.html#af4fa93fd2a023946a84a8e6cb913c11e", null ],
+    [ "Log_items_model", "class_log__viewer_1_1_log__items__model.html#ab38f8287204eee07e56f7f760d332b60", null ],
+    [ "add", "class_log__viewer_1_1_log__items__model.html#a8975bf848715c81e639d2d1c3a841020", null ],
+    [ "add", "class_log__viewer_1_1_log__items__model.html#a2065c7f09cf2f34bc476c9d549d4d8ba", null ],
+    [ "add_highlight", "class_log__viewer_1_1_log__items__model.html#ab94931c3cae966d04415071da272cfb7", null ],
+    [ "begin_highlight", "class_log__viewer_1_1_log__items__model.html#ac4abf3f20d17ade1eec7b63b5b38ae38", null ],
+    [ "clear", "class_log__viewer_1_1_log__items__model.html#af90dd226e157a6629d669b0d381df5b3", null ],
+    [ "clear_all_highlights", "class_log__viewer_1_1_log__items__model.html#ab79792cd16b66ef42b644b0660c94e3e", null ],
+    [ "clear_highlight", "class_log__viewer_1_1_log__items__model.html#a5bfe5f0d114e990b1139102860162379", null ],
+    [ "columnCount", "class_log__viewer_1_1_log__items__model.html#ad3608891e3d6add9b5ca6cbaf042f9e8", null ],
+    [ "data", "class_log__viewer_1_1_log__items__model.html#aa703d582b1947c4bd1ec08cb9ab14464", null ],
+    [ "end_highlight", "class_log__viewer_1_1_log__items__model.html#a175e6ed971ea20ae342d1c53cdfed7e6", null ],
+    [ "get_column_index_from_type", "class_log__viewer_1_1_log__items__model.html#a8dc47edb18bfeb1469ea6111cd9ee676", null ],
+    [ "get_highlights", "class_log__viewer_1_1_log__items__model.html#aec79939e6844d655e2444b4495fd4483", null ],
+    [ "get_item_at", "class_log__viewer_1_1_log__items__model.html#a19c2785185c97acf5d2d94e7884656b2", null ],
+    [ "get_use_regex_for_highlight", "class_log__viewer_1_1_log__items__model.html#aa63a8057f03e78a5f2191f953d6be5db", null ],
+    [ "headerData", "class_log__viewer_1_1_log__items__model.html#a5f242a7d86c3a41f49d2838492a5e8f2", null ],
+    [ "rowCount", "class_log__viewer_1_1_log__items__model.html#a36ce1d33ee6a53e762413e91606971e5", null ],
+    [ "set_columns", "class_log__viewer_1_1_log__items__model.html#a54494daa82c96c64369cac5d5873ea7a", null ],
+    [ "set_type_highlight", "class_log__viewer_1_1_log__items__model.html#a4c70981f49821218b04e56e37044b86f", null ],
+    [ "set_use_regex_for_highlight", "class_log__viewer_1_1_log__items__model.html#a07d88207be51cb27ebd41c818ef4ada6", null ]
+];

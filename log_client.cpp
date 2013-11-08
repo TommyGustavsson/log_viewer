@@ -6,16 +6,30 @@ namespace Log_viewer
 {
 
     Log_client::Log_client(QObject* parent, QTcpSocket* socket):
-            QObject(parent), m_tcp_client(socket)
+            QObject(parent), m_socket_client(socket)
     {
-        connect(m_tcp_client,
+        m_socket_type = stTCP;
+        connect(socket,
                 SIGNAL(disconnected()),
                 this,
                 SLOT(on_client_disconnected()));
-        connect(m_tcp_client,
+        connect(socket,
                 SIGNAL(readyRead()),
                 this,
                 SLOT(on_client_write()));
+    }
+
+    // ----------------------------------------------------------------------------
+
+    Log_client::Log_client(QObject* parent, QUdpSocket* socket):
+            QObject(parent), m_socket_client(socket)
+    {
+        m_socket_type = stUDP;
+//        m_udp_socket = new QUdpSocket(this);
+//        m_udp_socket->bind(port, QUdpSocket::ShareAddress);
+
+        connect(socket, SIGNAL(readyRead()),
+                this, SLOT(on_client_write()));
     }
 
     // ----------------------------------------------------------------------------
@@ -28,7 +42,7 @@ namespace Log_viewer
 
     bool Log_client::get_log_format(const QString line)
     {
-        m_log_format = Log_format_factory::instance->create(line, m_tcp_client->peerAddress().toString());
+        m_log_format = Log_format_factory::instance->create(line, m_socket_client->peerAddress().toString());
 
         connect(m_log_format.data(),
                 SIGNAL(log_found(QSharedPointer<Log_item>)),
@@ -43,24 +57,48 @@ namespace Log_viewer
 
     void Log_client::on_client_write()
     {
-        char buf[1024];
-        int read_cnt = 0;
-
-        do
+        if (m_socket_type == stTCP)
         {
-            read_cnt = m_tcp_client->readLine(buf, sizeof(buf));
-            QString line = QString::fromLocal8Bit(buf, read_cnt);
-            if(m_log_format.isNull())
-            {
-                if(get_log_format(line))
-                    m_log_format->add_line(line);
-                else
-                    m_log_format.clear();
-            }
-            else
-                m_log_format->add_line(line);
+            char buf[1024];
+            int read_cnt = 0;
 
-        } while (read_cnt > 0);
+            do
+            {
+                read_cnt = m_socket_client->readLine(buf, sizeof(buf));
+                QString line = QString::fromLocal8Bit(buf, read_cnt);
+                if(m_log_format.isNull())
+                {
+                    if(get_log_format(line))
+                        m_log_format->add_line(line);
+                    else
+                        m_log_format.clear();
+                }
+                else
+                    m_log_format->add_line(line);
+
+            } while (read_cnt > 0);
+        }
+        else if (m_socket_type == stUDP)
+        {
+            QUdpSocket *udp_socket = dynamic_cast<QUdpSocket*>(m_socket_client);
+            while (udp_socket->hasPendingDatagrams())
+            {
+                 QByteArray datagram;
+                 datagram.resize(udp_socket->pendingDatagramSize());
+                 udp_socket->readDatagram(datagram.data(), datagram.size());
+
+                 QString line = QString::fromLocal8Bit(datagram.data(), datagram.size());
+                 if(m_log_format.isNull())
+                 {
+                     if(get_log_format(line))
+                         m_log_format->add_line(line);
+                     else
+                         m_log_format.clear();
+                 }
+                 else
+                     m_log_format->add_line(line);
+             }
+        }
 
     }
 
@@ -70,4 +108,5 @@ namespace Log_viewer
     {
         emit log_found(item);
     }
+
 }

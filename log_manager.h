@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QUdpSocket>
 #include <QSharedPointer>
 #include <log_file_parser.h>
 #include <QStringList>
@@ -20,6 +21,8 @@ namespace Log_viewer
     class Log_format;
     class ftp_files_model;
 
+    enum Socket_type {stTCP, stUDP, stNone};
+
     class Log_manager : public QObject
     {
         Q_OBJECT
@@ -30,7 +33,7 @@ namespace Log_viewer
 
         static Log_manager *instance;
 
-        bool listen(int port);
+        bool listen(int port, Socket_type socket_type);
         void close();
         void open_log_files(const QStringList& files);
         void open_log(const QString& file);
@@ -91,8 +94,10 @@ namespace Log_viewer
     private:
         void signal_log_not_empty();
         void setup_default_columns();
+        void create_udp_socket(int port);
 
         QTcpServer *m_tcp_server;
+        QUdpSocket *m_udp_socket;
 
         Log_items_model* m_log_items_model;
         Log_filter_proxy_model* m_log_filter_proxy_model;
@@ -107,6 +112,7 @@ namespace Log_viewer
 
         bool log_items_empty_signaled;
         int m_process_event_counter;
+        Socket_type m_socket_type;
 
     private slots:
         void on_client_connected();

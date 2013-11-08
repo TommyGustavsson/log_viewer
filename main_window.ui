@@ -347,7 +347,7 @@
      <x>0</x>
      <y>0</y>
      <width>1085</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -622,6 +622,23 @@
             <widget class="QLineEdit" name="server_port_lineEdit">
              <property name="placeholderText">
               <string>Port</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="tcpRadioButton">
+             <property name="text">
+              <string>TCP</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="udpRadioButton">
+             <property name="text">
+              <string>UDP</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

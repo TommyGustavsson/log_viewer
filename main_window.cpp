@@ -613,12 +613,12 @@ void Main_window::on_open_server_pushButton_clicked(bool checked)
         int port = ui->server_port_lineEdit->text().toInt(&is_int);
         if(is_int)
         {
-            Log_manager::instance->listen(port);
+            Log_manager::instance->listen(port, ui->udpRadioButton->isChecked() ? stUDP : stTCP);
         }
         else
         {
             ui->open_server_pushButton->setChecked(false);
-        }
+        }        
     }
     else
     {
@@ -956,3 +956,5 @@ void Main_window::on_ftpFiles_listView_activated(QModelIndex index)
 {
     Log_manager::instance->ftp_model()->openFileFromModelIndex(index);
 }
+
+

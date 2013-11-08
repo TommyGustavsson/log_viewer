@@ -1,0 +1,88 @@
+\hypertarget{class_log__viewer_1_1_log__items__model}{\section{Log\-\_\-viewer\-:\-:Log\-\_\-items\-\_\-model Class Reference}
+\label{class_log__viewer_1_1_log__items__model}\index{Log\-\_\-viewer\-::\-Log\-\_\-items\-\_\-model@{Log\-\_\-viewer\-::\-Log\-\_\-items\-\_\-model}}
+}
+Inheritance diagram for Log\-\_\-viewer\-:\-:Log\-\_\-items\-\_\-model\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_log__viewer_1_1_log__items__model}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_af4fa93fd2a023946a84a8e6cb913c11e}{typedef Q\-Pair$<$ Q\-String, Q\-Color $>$ {\bfseries Highlight\-\_\-text\-\_\-pair}}\label{class_log__viewer_1_1_log__items__model_af4fa93fd2a023946a84a8e6cb913c11e}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a1775182799f950e0430d9431a2acc098}{typedef Q\-List\\*
+$<$ Highlight\-\_\-text\-\_\-pair $>$ {\bfseries Color\-\_\-list}}\label{class_log__viewer_1_1_log__items__model_a1775182799f950e0430d9431a2acc098}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_ab38f8287204eee07e56f7f760d332b60}{{\bfseries Log\-\_\-items\-\_\-model} (Q\-Object $\ast$parent=0)}\label{class_log__viewer_1_1_log__items__model_ab38f8287204eee07e56f7f760d332b60}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a36ce1d33ee6a53e762413e91606971e5}{int {\bfseries row\-Count} (const Q\-Model\-Index \&parent) const }\label{class_log__viewer_1_1_log__items__model_a36ce1d33ee6a53e762413e91606971e5}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_ad3608891e3d6add9b5ca6cbaf042f9e8}{int {\bfseries column\-Count} (const Q\-Model\-Index \&parent) const }\label{class_log__viewer_1_1_log__items__model_ad3608891e3d6add9b5ca6cbaf042f9e8}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_aa703d582b1947c4bd1ec08cb9ab14464}{Q\-Variant {\bfseries data} (const Q\-Model\-Index \&index, int role) const }\label{class_log__viewer_1_1_log__items__model_aa703d582b1947c4bd1ec08cb9ab14464}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a5f242a7d86c3a41f49d2838492a5e8f2}{Q\-Variant {\bfseries header\-Data} (int section, Qt\-::\-Orientation orientation, int role) const }\label{class_log__viewer_1_1_log__items__model_a5f242a7d86c3a41f49d2838492a5e8f2}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a54494daa82c96c64369cac5d5873ea7a}{void {\bfseries set\-\_\-columns} (const Log\-\_\-columns \&columns)}\label{class_log__viewer_1_1_log__items__model_a54494daa82c96c64369cac5d5873ea7a}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a8975bf848715c81e639d2d1c3a841020}{void {\bfseries add} (Q\-Shared\-Pointer$<$ \hyperlink{class_log__viewer_1_1_log__item}{Log\-\_\-item} $>$ item)}\label{class_log__viewer_1_1_log__items__model_a8975bf848715c81e639d2d1c3a841020}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a2065c7f09cf2f34bc476c9d549d4d8ba}{void {\bfseries add} (const Log\-\_\-file\-\_\-parser\-::\-Log\-\_\-items \&items)}\label{class_log__viewer_1_1_log__items__model_a2065c7f09cf2f34bc476c9d549d4d8ba}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_af90dd226e157a6629d669b0d381df5b3}{void {\bfseries clear} ()}\label{class_log__viewer_1_1_log__items__model_af90dd226e157a6629d669b0d381df5b3}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a19c2785185c97acf5d2d94e7884656b2}{Q\-Shared\-Pointer$<$ \hyperlink{class_log__viewer_1_1_log__item}{Log\-\_\-item} $>$ {\bfseries get\-\_\-item\-\_\-at} (int index)}\label{class_log__viewer_1_1_log__items__model_a19c2785185c97acf5d2d94e7884656b2}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_ab94931c3cae966d04415071da272cfb7}{void {\bfseries add\-\_\-highlight} (const Q\-Color \&color, const Q\-String \&text)}\label{class_log__viewer_1_1_log__items__model_ab94931c3cae966d04415071da272cfb7}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a5bfe5f0d114e990b1139102860162379}{void {\bfseries clear\-\_\-highlight} (const Q\-Color \&color)}\label{class_log__viewer_1_1_log__items__model_a5bfe5f0d114e990b1139102860162379}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_ab79792cd16b66ef42b644b0660c94e3e}{void {\bfseries clear\-\_\-all\-\_\-highlights} ()}\label{class_log__viewer_1_1_log__items__model_ab79792cd16b66ef42b644b0660c94e3e}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_ac4abf3f20d17ade1eec7b63b5b38ae38}{void {\bfseries begin\-\_\-highlight} ()}\label{class_log__viewer_1_1_log__items__model_ac4abf3f20d17ade1eec7b63b5b38ae38}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a175e6ed971ea20ae342d1c53cdfed7e6}{void {\bfseries end\-\_\-highlight} ()}\label{class_log__viewer_1_1_log__items__model_a175e6ed971ea20ae342d1c53cdfed7e6}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_aec79939e6844d655e2444b4495fd4483}{const Color\-\_\-list {\bfseries get\-\_\-highlights} () const }\label{class_log__viewer_1_1_log__items__model_aec79939e6844d655e2444b4495fd4483}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a4c70981f49821218b04e56e37044b86f}{void {\bfseries set\-\_\-type\-\_\-highlight} (bool enabled)}\label{class_log__viewer_1_1_log__items__model_a4c70981f49821218b04e56e37044b86f}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a07d88207be51cb27ebd41c818ef4ada6}{void {\bfseries set\-\_\-use\-\_\-regex\-\_\-for\-\_\-highlight} (bool enabled)}\label{class_log__viewer_1_1_log__items__model_a07d88207be51cb27ebd41c818ef4ada6}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_aa63a8057f03e78a5f2191f953d6be5db}{bool {\bfseries get\-\_\-use\-\_\-regex\-\_\-for\-\_\-highlight} ()}\label{class_log__viewer_1_1_log__items__model_aa63a8057f03e78a5f2191f953d6be5db}
+
+\item 
+\hypertarget{class_log__viewer_1_1_log__items__model_a8dc47edb18bfeb1469ea6111cd9ee676}{int {\bfseries get\-\_\-column\-\_\-index\-\_\-from\-\_\-type} (Column\-\_\-type type)}\label{class_log__viewer_1_1_log__items__model_a8dc47edb18bfeb1469ea6111cd9ee676}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+log\-\_\-items\-\_\-model.\-h\item 
+log\-\_\-items\-\_\-model.\-cpp\end{DoxyCompactItemize}
