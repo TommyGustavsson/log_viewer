@@ -80,20 +80,37 @@ namespace Log_viewer
             // color code by type
             if(m_type_highlight_enabled)
             {
+                QColor color;
                 switch(m_items.at(index.row())->get_log_type())
                 {
-                    case lt_info : return QVariant(QColor(230, 230, 230));
-                    case lt_warning : return QVariant(QColor(242, 225, 169));
-                    case lt_error : return QVariant(QColor(184, 69, 67));
-                    case lt_fatal : return QVariant(QColor(139, 87, 88));
-                    case lt_trace : return QVariant(QColor(71, 95, 84));
-                    case lt_debug : return QVariant(QColor(68, 103, 161));
-                    case lt_always : return QVariant(QColor(134, 106, 125));
+
+                    case lt_info :
+                        color.setNamedColor("dimgray");
+                        break;
+                    case lt_warning :
+                        color.setNamedColor("khaki");
+                        break;
+                    case lt_error :
+                        color.setNamedColor("lightcoral");
+                        break;
+                    case lt_fatal :
+                        color.setNamedColor("red");
+                        break;
+                    case lt_trace :
+                        color.setNamedColor("aquamarine");
+                        break;
+                    case lt_debug :
+                        color.setNamedColor("lightsteelblue");
+                        break;
+                    case lt_always :
+                        color.setNamedColor("lavender");
+                        break;
                     case lt_application : return QVariant(Qt::gray);
                     case lt_unknown: return QVariant(Qt::gray);
                     case lt_none : return QVariant(Qt::gray);
                     default : return QVariant(Qt::white);
                 }
+                return QVariant(color.darker(150));
             }
             else
             {
@@ -107,12 +124,39 @@ namespace Log_viewer
                 }
             }
             break;
-//        case Qt::ForegroundRole:
-//            switch(m_items.at(index.row())->get_log_type())
-//            {
-//                case lt_info : return QVariant(Qt::white);
-//                default : return QVariant(Qt::black);
-//            }
+        case Qt::ForegroundRole:
+        {
+            QColor color;
+            switch(m_items.at(index.row())->get_log_type())
+            {
+                case lt_info :
+                    color.setNamedColor("silver");
+                    break;
+                case lt_warning :
+                    color.setNamedColor("khaki");
+                    break;
+                case lt_error :
+                    color.setNamedColor("lightpink");
+                    break;
+                case lt_fatal :
+                    color.setNamedColor("beige");
+                    break;
+                case lt_trace :
+                    color.setNamedColor("darkslategray");
+                    break;
+                case lt_debug :
+                    color.setNamedColor("darkslategray");
+                    break;
+                case lt_always :
+                    color.setNamedColor("darkslategray");
+                    break;
+                case lt_application : return QVariant(Qt::white);
+                case lt_unknown: return QVariant(Qt::white);
+                case lt_none : return QVariant(Qt::white);
+                default : return QVariant(Qt::white);
+            }
+            return QVariant(color);
+        }
         default:
             return QVariant();
             break;
