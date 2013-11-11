@@ -1,6 +1,8 @@
 log_viewer
 ==========
 
+<img src="screenshot.png" alt="Screenshot"/>
+
 Platform independent graphical log viewer
 
 The most important factor for me when I decided to start this project was the fact that I did not like the look-and-feel of existing log viewer software.
