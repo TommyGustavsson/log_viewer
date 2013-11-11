@@ -197,15 +197,15 @@ QDockWidget::title {
 
 QPushButton {
     color: black;
-    border-color:transparent;
-    border-radius: 4px;
-    padding: 5px;
+    /*border: 2px solid #8f8f91;*/
+    border-radius: 5px;
+    padding: 3px;
 
         background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0.00568182, stop:0 rgba(120, 120, 120, 255), stop:1 rgba(200, 200, 200, 255));
         /*background-color: qlineargradient(spread:reflect, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(80, 80, 80, 255), stop:0.590909 rgba(80, 80, 80, 255), stop:1 rgba(120, 120, 120, 255));*/
     /*background: qradialgradient(cx: 0.3, cy: -0.4,
         fx: 0.3, fy: -0.4, radius: 1.35, stop: 0 #fff, stop: 1 #888);*/
-    /*min-width: 80px;*/
+    min-width: 60px;
 }
 
 QPushButton:disabled {

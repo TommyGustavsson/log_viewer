@@ -85,7 +85,7 @@ namespace Log_viewer
                 {
 
                     case lt_info :
-                        color.setNamedColor("dimgray");
+                        return QVariant(Qt::white);
                         break;
                     case lt_warning :
                         color.setNamedColor("khaki");
@@ -97,10 +97,10 @@ namespace Log_viewer
                         color.setNamedColor("red");
                         break;
                     case lt_trace :
-                        color.setNamedColor("aquamarine");
+                        color.setNamedColor("lightsteelblue");
                         break;
                     case lt_debug :
-                        color.setNamedColor("lightsteelblue");
+                        color.setNamedColor("aquamarine");
                         break;
                     case lt_always :
                         color.setNamedColor("lavender");
@@ -110,7 +110,7 @@ namespace Log_viewer
                     case lt_none : return QVariant(Qt::gray);
                     default : return QVariant(Qt::white);
                 }
-                return QVariant(color.darker(150));
+                return QVariant(color.darker(190));
             }
             else
             {
@@ -126,36 +126,44 @@ namespace Log_viewer
             break;
         case Qt::ForegroundRole:
         {
-            QColor color;
-            switch(m_items.at(index.row())->get_log_type())
+            if(m_type_highlight_enabled)
             {
-                case lt_info :
-                    color.setNamedColor("silver");
-                    break;
-                case lt_warning :
-                    color.setNamedColor("khaki");
-                    break;
-                case lt_error :
-                    color.setNamedColor("lightpink");
-                    break;
-                case lt_fatal :
-                    color.setNamedColor("beige");
-                    break;
-                case lt_trace :
-                    color.setNamedColor("darkslategray");
-                    break;
-                case lt_debug :
-                    color.setNamedColor("darkslategray");
-                    break;
-                case lt_always :
-                    color.setNamedColor("darkslategray");
-                    break;
-                case lt_application : return QVariant(Qt::white);
-                case lt_unknown: return QVariant(Qt::white);
-                case lt_none : return QVariant(Qt::white);
-                default : return QVariant(Qt::white);
+                QColor color;
+                switch(m_items.at(index.row())->get_log_type())
+                {
+                    case lt_info :
+                        return QVariant(Qt::black);
+                        break;
+                    case lt_warning :
+                        color.setNamedColor("khaki");
+                        break;
+                    case lt_error :
+                        color.setNamedColor("lightpink");
+                        break;
+                    case lt_fatal :
+                        color.setNamedColor("beige");
+                        break;
+                    case lt_trace :
+                        color.setNamedColor("deepskyblue");
+                        break;
+                    case lt_debug :
+                        color.setNamedColor("palegreen");
+                        break;
+                    case lt_always :
+                        color.setNamedColor("darkslategray");
+                        break;
+                    case lt_application : return QVariant(Qt::white);
+                    case lt_unknown: return QVariant(Qt::white);
+                    case lt_none : return QVariant(Qt::white);
+                    default : return QVariant(Qt::white);
+                }
+                return QVariant(color);
             }
-            return QVariant(color);
+            else
+            {
+                return QVariant(Qt::black);
+            }
+            break;
         }
         default:
             return QVariant();
