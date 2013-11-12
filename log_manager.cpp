@@ -304,12 +304,13 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Log_manager::apply_filter(const QString& text, const QString& file, const QString& module, const QString& index)
+    void Log_manager::apply_filter(const QString& text, const QString& file, const QString& module, const QString& index, const QString &origin)
     {
         m_log_filter_proxy_model->set_text_filter(text);
         m_log_filter_proxy_model->set_module_filter(module);
         m_log_filter_proxy_model->set_file_filter(file);
         m_log_filter_proxy_model->set_index_filter(index);
+        m_log_filter_proxy_model->set_origin_filter(origin);
         m_log_filter_proxy_model->apply();
     }
 

@@ -24,6 +24,7 @@ namespace Log_viewer
         Log_items_model* items_model = dynamic_cast<Log_items_model*>(sourceModel());
         QString module = items_model->get_item_at(source_row)->get_module();
         QString file = items_model->get_item_at(source_row)->get_file();
+        QString origin = items_model->get_item_at(source_row)->get_origin();
         int index = items_model->get_item_at(source_row)->get_index();
 
         return (
@@ -31,7 +32,8 @@ namespace Log_viewer
                 ((m_text_filter.isEmpty()) || text_filter(source_row)) &&
                 ((m_module_filter.isEmpty()) || module.contains(m_module_filter, Qt::CaseInsensitive)) &&
                 ((m_file_filter.isEmpty()) || file.contains(m_file_filter, Qt::CaseInsensitive)) &&
-                ((m_index_filter.isEmpty()) || ((index >= m_index_min) && (index <= m_index_max)))
+                ((m_index_filter.isEmpty()) || ((index >= m_index_min) && (index <= m_index_max))) &&
+                ((m_origin_filter.isEmpty()) || origin.contains(m_origin_filter, Qt::CaseInsensitive))
                 );
 
     }
@@ -71,6 +73,13 @@ namespace Log_viewer
             m_index_min = 0;
         }
 
+    }
+
+    // ----------------------------------------------------------------------------
+
+    void Log_filter_proxy_model::set_origin_filter(const QString& origin)
+    {
+        m_origin_filter = origin;
     }
 
     // ----------------------------------------------------------------------------

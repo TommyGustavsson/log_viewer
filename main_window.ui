@@ -211,6 +211,13 @@
                </widget>
               </item>
               <item>
+               <widget class="QLineEdit" name="origin_lineEdit">
+                <property name="placeholderText">
+                 <string>Origin</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="filter_pushButton">
                 <property name="enabled">
                  <bool>true</bool>

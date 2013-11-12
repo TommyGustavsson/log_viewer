@@ -19,6 +19,7 @@ namespace Log_viewer
         void set_text_filter(const QString& text);
         void set_index_filter(const QString& index);
         void set_module_filter(const QString& module);
+        void set_origin_filter(const QString& origin);
         void set_file_filter(const QString& file);
         void add_type_filter(Log_type type);
         void clear_type_filter();
@@ -44,6 +45,7 @@ namespace Log_viewer
         QString m_index_filter;
         QString m_module_filter;
         QString m_file_filter;
+        QString m_origin_filter;
         int m_index_min;
         int m_index_max;
         QList<Log_type> m_type_filter;

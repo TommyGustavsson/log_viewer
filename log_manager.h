@@ -39,7 +39,7 @@ namespace Log_viewer
         void open_log(const QString& file);
         void open_log_from_clipboard();
         void open_ftp(const QString &host, int port, const QString &userName, const QString &password);
-        void apply_filter(const QString& text, const QString& file, const QString& module, const QString& index);
+        void apply_filter(const QString& text, const QString& file, const QString& module, const QString& index, const QString &origin);
         void clear_filter();
         void tail_current_file();
         void clear_tail();

@@ -259,6 +259,10 @@ void Main_window::connect_gui()
             SIGNAL(returnPressed()),
             this,
             SLOT(on_filter_pushButton_clicked()));
+    connect(ui->origin_lineEdit,
+            SIGNAL(returnPressed()),
+            this,
+            SLOT(on_filter_pushButton_clicked()));
     connect(ui->index_lineEdit,
             SIGNAL(returnPressed()),
             this,
@@ -485,13 +489,19 @@ void Main_window::on_filter_pushButton_clicked()
             ui->filter_lineEdit->text(),
             ui->file_lineEdit->text(),
             ui->module_lineEdit->text(),
-            ui->index_lineEdit->text());
+            ui->index_lineEdit->text(),
+            ui->origin_lineEdit->text());
 }
 
 // ----------------------------------------------------------------------------
 
 void Main_window::on_clear_filter_pushButton_clicked()
 {
+    ui->filter_lineEdit->setText("");
+    ui->file_lineEdit->setText("");
+    ui->module_lineEdit->setText("");
+    ui->index_lineEdit->setText("");
+    ui->origin_lineEdit->setText("");
     Log_manager::instance->clear_filter();
 }
 
@@ -660,7 +670,8 @@ void Main_window::on_filter_regex_checkBox_clicked(bool checked)
         Log_manager::instance->apply_filter(ui->filter_lineEdit->text(),
                                             ui->file_lineEdit->text(),
                                             ui->module_lineEdit->text(),
-                                            ui->index_lineEdit->text());
+                                            ui->index_lineEdit->text(),
+                                            ui->origin_lineEdit->text());
     }
 }
 
