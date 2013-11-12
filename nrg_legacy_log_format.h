@@ -60,10 +60,6 @@ namespace Log_viewer
             return m_description;
         }
 
-        QString get_origin() const {
-            return m_origin;
-        }
-
         Log_columns get_columns() const {
             return m_log_columns;
         }

@@ -17,10 +17,10 @@ namespace Log_viewer
         void set_start_seq(const QString value);
         void set_stop_seq(const QString value);
 
-        void add(const QString data);
+        void add(const QString data, const QString origin);
 
     signals:
-        void string_found(const QString value);
+        void string_found(const QString value, const QString origin);
 
     private:
         QString m_buffer;

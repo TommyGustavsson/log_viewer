@@ -84,7 +84,7 @@ namespace Log_viewer
 
         while (!text_stream.atEnd())
         {
-            m_log_format->add_line(text_stream.read(200));
+            m_log_format->add_line(text_stream.read(200), m_file_name);
         }
 
         if(m_log_items.size() > 0)

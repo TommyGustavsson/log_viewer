@@ -40,9 +40,18 @@ namespace Log_viewer
         emit disconnected(this);
     }
 
+    // ----------------------------------------------------------------------------
+
     bool Log_client::get_log_format(const QString line)
     {
-        m_log_format = Log_format_factory::instance->create(line, m_socket_client->peerAddress().toString());
+        if (m_socket_type == stTCP)
+        {
+            m_log_format = Log_format_factory::instance->create(line, m_socket_client->peerAddress().toString());
+        }
+        else
+        {
+            m_log_format = Log_format_factory::instance->create(line, m_udp_id);
+        }
 
         connect(m_log_format.data(),
                 SIGNAL(log_found(QSharedPointer<Log_item>)),
@@ -69,12 +78,12 @@ namespace Log_viewer
                 if(m_log_format.isNull())
                 {
                     if(get_log_format(line))
-                        m_log_format->add_line(line);
+                        m_log_format->add_line(line, get_address());
                     else
                         m_log_format.clear();
                 }
                 else
-                    m_log_format->add_line(line);
+                    m_log_format->add_line(line, get_address());
 
             } while (read_cnt > 0);
         }
@@ -85,18 +94,24 @@ namespace Log_viewer
             {
                  QByteArray datagram;
                  datagram.resize(udp_socket->pendingDatagramSize());
-                 udp_socket->readDatagram(datagram.data(), datagram.size());
+
+                 QHostAddress sender;
+                 quint16 senderPort;
+
+                 udp_socket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
+
+                 m_udp_id = QString("%1 %2").arg(sender.toString()).arg(senderPort);
 
                  QString line = QString::fromLocal8Bit(datagram.data(), datagram.size());
                  if(m_log_format.isNull())
                  {
                      if(get_log_format(line))
-                         m_log_format->add_line(line);
+                         m_log_format->add_line(line, get_address());
                      else
                          m_log_format.clear();
                  }
                  else
-                     m_log_format->add_line(line);
+                     m_log_format->add_line(line, get_address());
              }
         }
 

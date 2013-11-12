@@ -21,17 +21,16 @@ namespace Log_viewer
         virtual QString get_description() const = 0;
         virtual QString get_start_seq() const = 0;
         virtual QString get_stop_seq() const = 0;
-        virtual QString get_origin() const = 0;
         virtual bool match(const QString first_line) const = 0;
         virtual Log_columns get_columns() const = 0;
-        virtual void add_line(const QString line);
+        virtual void add_line(const QString line, const QString origin);
         virtual ~Log_format() {}
 
     signals:
         void log_found(QSharedPointer<Log_item> item);
 
     public slots:
-        void on_line_found(const QString value);
+        void on_line_found(const QString value, const QString origin);
     private:
         // Hide copy constructor
         Log_format(const Log_format&) : QObject(0) {}

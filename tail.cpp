@@ -57,7 +57,7 @@ namespace Log_viewer
                     // create + add new item
                     if(!line.isEmpty())
                     {
-                        m_log_format->add_line(line);
+                        m_log_format->add_line(line, m_file_name);
                     }
                 }
                 m_file_stream_end = file_stream.pos();

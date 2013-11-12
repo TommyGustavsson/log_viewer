@@ -21,13 +21,13 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Start_stop_buffer::add(const QString data)
+    void Start_stop_buffer::add(const QString data, const QString origin)
     {
         m_buffer.append(data);
 
         if(m_start_seq.isEmpty() && m_stop_seq.isEmpty())
         {
-            emit string_found(QString(m_buffer));
+            emit string_found(QString(m_buffer), origin);
             m_buffer.clear();
             return;
         }
@@ -51,7 +51,7 @@ namespace Log_viewer
             QString buf = m_buffer;
             buf.truncate(found_at);
             if(!buf.isEmpty())
-                emit string_found(buf);
+                emit string_found(buf, origin);
             m_buffer.remove(0, found_at + m_stop_seq.length());
         }
     }

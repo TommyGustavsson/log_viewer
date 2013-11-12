@@ -20,13 +20,20 @@ namespace Log_viewer
         Log_client(QObject* parent, QUdpSocket* socket);
 
         QString get_address() const {
-            return m_socket_client->peerAddress().toString();
+            if (m_socket_type == stTCP)
+            {
+                return m_socket_client->peerAddress().toString();
+            }
+            else
+            {
+                return m_udp_id;
+            }
         }
 
     private slots:
         void on_client_write();
         void on_client_disconnected();
-        void on_log_found(QSharedPointer<Log_item> item);        
+        void on_log_found(QSharedPointer<Log_item> item);
 
     signals:
         void disconnected(const Log_client* client);
@@ -42,6 +49,7 @@ namespace Log_viewer
         QSharedPointer<Log_format> m_log_format;
 
         enum Socket_type {stUDP, stTCP} m_socket_type;
+        QString m_udp_id;
     };
 }
 

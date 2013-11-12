@@ -38,9 +38,9 @@ namespace Log_viewer
             return m_description;
         }
 
-        QString get_origin() const {
-            return "";
-        }
+//        QString get_origin() const {
+//            return "";
+//        }
 
         Log_columns get_columns() const {
             return m_log_columns;
