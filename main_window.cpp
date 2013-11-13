@@ -160,10 +160,10 @@ void Main_window::switch_color_theme(int index)
 void Main_window::set_color_theme(QFrame* frame, int index)
 {
     QString stylesheet = QString(
-            "QFrame#%0 { background-color: %1; border: 2px solid %2; border-radius: 5px; }")
+                "QFrame#%0 { background-color: %1; border: 2px solid rgb(120,120,140); }")
             .arg(frame->objectName())
-            .arg(m_themes.at(m_theme_index).c[index].name())
-            .arg(m_themes.at(m_theme_index).c[index].darker(200).name());
+            .arg(m_themes.at(m_theme_index).c[index].name());
+            //.arg(m_themes.at(m_theme_index).c[index].darker(200).name());
 
     frame->setStyleSheet(stylesheet);
 }
