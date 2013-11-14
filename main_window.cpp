@@ -822,7 +822,7 @@ void Main_window::on_actionToggle_full_text_view_triggered()
 
 bool Main_window::is_full_text_view_visible()
 {
-    return (ui->full_text_groupBox->maximumHeight() > 0);
+    return (ui->full_text_textEdit->maximumHeight() > 0);
 }
 
 // ----------------------------------------------------------------------------

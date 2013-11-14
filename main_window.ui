@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1127</width>
+    <width>1254</width>
     <height>805</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="margin">
-     <number>6</number>
+     <number>0</number>
     </property>
     <item>
      <widget class="QSplitter" name="full_text_splitter">
@@ -70,9 +70,6 @@
               <string>Type filter</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <property name="spacing">
-               <number>4</number>
-              </property>
               <property name="margin">
                <number>6</number>
               </property>
@@ -165,14 +162,27 @@
             </widget>
            </item>
            <item>
+            <widget class="QGroupBox" name="groupBox_3">
+             <property name="title">
+              <string>Autoscroll</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QCheckBox" name="autoscroll_checkBox">
+                <property name="text">
+                 <string>Enabled</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
               <string>Text filter</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_11">
-              <property name="spacing">
-               <number>6</number>
-              </property>
               <property name="margin">
                <number>6</number>
               </property>
@@ -286,34 +296,10 @@
         </item>
        </layout>
       </widget>
-      <widget class="QGroupBox" name="full_text_groupBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="Log_item_preview_textEdit" name="full_text_textEdit">
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>80</height>
-        </size>
-       </property>
-       <property name="title">
-        <string>Full text</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <property name="margin">
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="Log_item_preview_textEdit" name="full_text_textEdit">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </widget>
      </widget>
     </item>
@@ -323,26 +309,6 @@
        <property name="margin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QCheckBox" name="autoscroll_checkBox">
-         <property name="text">
-          <string>Autoscroll</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </widget>
     </item>
@@ -353,7 +319,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1127</width>
+     <width>1254</width>
      <height>21</height>
     </rect>
    </property>
@@ -407,9 +373,6 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
-     <property name="spacing">
-      <number>4</number>
-     </property>
      <property name="margin">
       <number>6</number>
      </property>
@@ -975,8 +938,6 @@
   <tabstop>file_lineEdit</tabstop>
   <tabstop>fatal_toolButton</tabstop>
   <tabstop>log_tableView</tabstop>
-  <tabstop>full_text_textEdit</tabstop>
-  <tabstop>autoscroll_checkBox</tabstop>
   <tabstop>neighbor_listView</tabstop>
   <tabstop>ftpUser_lineEdit</tabstop>
   <tabstop>ftpPassword_lineEdit</tabstop>
