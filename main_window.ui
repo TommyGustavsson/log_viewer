@@ -440,12 +440,6 @@
         </property>
         <item>
          <widget class="QFrame" name="frame_4">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <property name="spacing">
             <number>4</number>
@@ -478,12 +472,6 @@
         </item>
         <item>
          <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <property name="spacing">
             <number>4</number>
@@ -578,12 +566,6 @@
         </item>
         <item>
          <widget class="QFrame" name="frame_9">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
           <layout class="QHBoxLayout" name="horizontalLayout_10">
            <property name="margin">
             <number>0</number>
