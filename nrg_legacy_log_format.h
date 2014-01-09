@@ -31,6 +31,8 @@ namespace Log_viewer
             m_log_columns.push_back(QSharedPointer<Log_column>(new Log_column(column_module)));            
             m_log_columns.push_back(QSharedPointer<Log_column>(new Log_column(column_thread)));
             m_log_columns.push_back(QSharedPointer<Log_column>(new Log_column(column_origin)));
+
+            m_log_columns.push_back(QSharedPointer<Log_column>(new Log_column(column_time)));
         }
 
         /*!
