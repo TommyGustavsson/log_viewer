@@ -117,6 +117,7 @@ namespace Log_viewer
         m_file_filter.clear();
         m_module_filter.clear();
         m_index_filter.clear();
+        m_origin_filter.clear();
 
         emit filter_cleared();
     }
