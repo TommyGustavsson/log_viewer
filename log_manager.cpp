@@ -15,7 +15,7 @@
 #include <QTextStream>
 #include <QApplication>
 #include <ftp_files_model.h>
-
+#include <ftp_files_proxy_model.h>
 
 namespace Log_viewer
 {
@@ -38,6 +38,9 @@ namespace Log_viewer
         m_log_filter_proxy_model = new Log_filter_proxy_model(this);
         m_file_neighbor_model = new File_neighbor_model(this);
         m_ftp_files_model = new ftp_files_model(this);
+
+        m_ftp_files_proxy_model = new ftp_files_proxy_model(this);
+        m_ftp_files_proxy_model->setSourceModel(m_ftp_files_model);
 
         m_log_filter_proxy_model->setSourceModel(m_log_items_model);
         m_log_filter_proxy_model->setDynamicSortFilter(true);
@@ -75,6 +78,10 @@ namespace Log_viewer
                 SIGNAL(fileDownloaded(QString)),
                 this,
                 SLOT(on_ftp_file_downloaded(QString)));
+        connect(m_ftp_files_model,
+                SIGNAL(downloadingFtpFile(QString)),
+                this,
+                SLOT(on_downloading_ftp_file(QString)));
 
         setup_default_columns();
     }
@@ -88,9 +95,10 @@ namespace Log_viewer
 
     void Log_manager::on_ftp_file_downloaded(const QString file_name)
     {
-        emit ftp_file_downloaded(file_name);
+        clear_ftp_tail();
         clear_log_items();
         m_file_parser.open(file_name);
+        emit ftp_file_downloaded(file_name);
     }
 
     // ----------------------------------------------------------------------------
@@ -111,7 +119,7 @@ namespace Log_viewer
         m_log_items_model->add(log_item);
         signal_log_not_empty();
 
-        if(m_process_event_counter++ > 100) {
+        if(m_process_event_counter++ >= 1000) {
             QApplication::processEvents();
             m_process_event_counter = 0;
         }
@@ -124,7 +132,8 @@ namespace Log_viewer
         m_log_items_model->add(items);
         signal_log_not_empty();
 
-        if(m_process_event_counter++ > 10) {
+        m_process_event_counter += items.count();
+        if(m_process_event_counter >= 1000) {
             QApplication::processEvents();
             m_process_event_counter = 0;
         }
@@ -182,9 +191,50 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Log_manager::open_ftp(const QString &host, int port, const QString &userName, const QString &password)
+    void Log_manager::open_ftp(const QString &host, int port, const QString &userName, const QString &password, Connection_type protocol)
     {
-        m_ftp_files_model->connectToFTP(host, port, userName, password);
+        QtConcurrent::run(m_ftp_files_model, &ftp_files_model::connectToServer, host, port, userName, password, protocol);
+    }
+
+    // ----------------------------------------------------------------------------
+
+    void Log_manager::tail_ftp(const QString &host, int port, const QString &userName, const QString &password, Connection_type protocol)
+    {
+        QString protocol_string = (protocol == FTP ? "ftp" : "sftp");
+        QString url = QString("%1://%2:%3@%4:%5/%6").arg(protocol_string).arg(userName).arg(password).arg(host).arg(port).arg(m_remote_ftp_file_name);
+
+        disconnect(m_file_parser.get_current_log_format().data(),
+                   SIGNAL(log_found(QSharedPointer<Log_item>)),
+                   0,
+                   0);
+
+        m_FTP_tail_libcurl = QSharedPointer<FTP_tail_libcurl>(
+                new FTP_tail_libcurl(url,
+                                     m_current_file_size,
+                                     m_file_parser.get_current_log_format(),
+                                     protocol,
+                                     this));
+
+        m_FTP_tail_libcurl->moveToThread(&m_ftp_tail_thread);
+        m_ftp_tail_thread.start();
+
+        connect(m_FTP_tail_libcurl.data(),
+                SIGNAL(file_size_updated(long)),
+                this,
+                SLOT(on_file_size_updated(long)));
+
+        connect(m_FTP_tail_libcurl.data(),
+                SIGNAL(logs_found(Log_file_parser::Log_items)),
+                this,
+                SLOT(on_logs_found(Log_file_parser::Log_items)));
+
+        connect(this,
+                SIGNAL(check_for_log_updated()),
+                m_FTP_tail_libcurl.data(),
+                SLOT(check_for_log_updated()));
+
+
+        emit check_for_log_updated();
     }
 
     // ----------------------------------------------------------------------------
@@ -243,6 +293,7 @@ namespace Log_viewer
 
     void Log_manager::open_log_files(const QStringList& files) {
         clear_log_items();
+        emit local_file_opened();
         for(int i = 0; i < files.size(); i++)
         {
             QString file = files.at(i);
@@ -347,6 +398,18 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
+    void Log_manager::clear_ftp_tail()
+    {
+        if (m_FTP_tail_libcurl)
+        {
+            m_ftp_tail_thread.quit();
+            m_ftp_tail_thread.wait();
+            emit ftp_tail_cleared();
+        }
+    }
+
+    // ----------------------------------------------------------------------------
+
     void Log_manager::on_tail_log_found(QSharedPointer<Log_item> item)
     {
         m_log_items_model->add(item);
@@ -383,6 +446,11 @@ namespace Log_viewer
             emit log_format_selected(format->get_description());
         }
         m_current_log_format_description = format->get_description();
+
+        m_log_filter_proxy_model->setSourceModel(m_log_items_model);
+        m_log_filter_proxy_model->setDynamicSortFilter(true);
+
+
 
         //emit log_format_selected(format->get_description());
     }
@@ -427,5 +495,28 @@ namespace Log_viewer
     {
         m_log_filter_proxy_model->clear_filter();
         m_log_filter_proxy_model->apply();
+    }
+
+    // ----------------------------------------------------------------------------
+
+    void Log_manager::on_downloading_ftp_file(const QString remote_file_name)
+    {
+        m_remote_ftp_file_name = remote_file_name;
+        emit downloading_file();
+    }
+
+    // ----------------------------------------------------------------------------
+
+    void Log_manager::on_file_size_updated(long current_file_size)
+    {
+        qDebug("Current filesize set to: " + QString::number(current_file_size).toAscii());
+        m_current_file_size = current_file_size;
+    }
+
+    // ----------------------------------------------------------------------------
+
+    void Log_manager::update_transfer_progress(double bytes_done, double bytes_total)
+    {
+        emit file_transfer_progress(bytes_done, bytes_total);
     }
 }

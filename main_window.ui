@@ -449,6 +449,23 @@
             <number>0</number>
            </property>
            <item>
+            <widget class="QRadioButton" name="FTP_radioButton">
+             <property name="text">
+              <string>FTP</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="SFTP_radioButton">
+             <property name="text">
+              <string>SFTP</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QLineEdit" name="ftpHost_lineEdit">
              <property name="placeholderText">
               <string>Host ip-address or name</string>
@@ -532,6 +549,22 @@
           </property>
           <property name="format">
            <string>%p%</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="tailFTP_pushButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="text">
+           <string>Tail Current File</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
           </property>
          </widget>
         </item>

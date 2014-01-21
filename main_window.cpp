@@ -9,6 +9,7 @@
 #include <clients_model.h>
 #include <file_neighbor_model.h>
 #include <ftp_files_model.h>
+#include <ftp_files_proxy_model.h>
 #include <QFileInfo>
 #include <QListWidgetItem>
 #include <QMenu>
@@ -18,6 +19,7 @@
 #include <QSettings>
 #include <QContextMenuEvent>
 #include <QKeySequence>
+#include <QtConcurrentRun>
 
 using namespace Log_viewer;
 
@@ -35,6 +37,7 @@ const QString CFTP_USER = "ftp/userName";
 const QString CFTP_PASSWORD = "ftp/password";
 const QString CFTP_HOST = "ftp/host";
 const QString CFTP_PORT = "ftp/port";
+const QString CPROTOCOL = "server/protocol";
 // do not translate ---------------------------------------------------
 
 const QColor THEME_A[5] = {QColor(44,73,105),
@@ -77,6 +80,9 @@ Main_window::Main_window(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //qRegisterMetaType<log_item_ptr>("log_item_ptr");
+    qRegisterMetaType<Log_file_parser::Log_items>("Log_file_parser::Log_items");
+
     connect_log_manager();
     connect_gui();
 
@@ -99,7 +105,9 @@ Main_window::Main_window(QWidget *parent) :
     ui->actionClear_Log_View->setEnabled(false);
     ui->clients_listView->setModel(Log_manager::instance->clients_model());
     ui->neighbor_listView->setModel(Log_manager::instance->file_neighbor_model());
-    ui->ftpFiles_listView->setModel(Log_manager::instance->ftp_model());
+    ui->ftpFiles_listView->setModel(Log_manager::instance->ftp_proxy_model());
+    ui->tailFTP_pushButton->setEnabled(false);
+    ui->ftpFiles_listView->setContextMenuPolicy(Qt::CustomContextMenu);
 
     ui->index_lineEdit->setToolTip("Ex. 100-150, will show line 100 to 150");
     add_focus_filter_shortcut();
@@ -201,6 +209,10 @@ void Main_window::connect_log_manager()
             this,
             SLOT(on_tail_cleared()));
     connect(Log_manager::instance,
+            SIGNAL(ftp_tail_cleared()),
+            this,
+            SLOT(on_ftp_tail_cleared()));
+    connect(Log_manager::instance,
             SIGNAL(log_items_empty()),
             this,
             SLOT(on_log_items_empty()));
@@ -216,10 +228,10 @@ void Main_window::connect_log_manager()
             SIGNAL(log_proxy_filter_cleared()),
             this,
             SLOT(on_proxy_filter_cleared()));
-    connect(Log_manager::instance->ftp_model(),
-            SIGNAL(fileDownloadProgress(qint64,qint64)),
+    connect(Log_manager::instance,
+            SIGNAL(file_transfer_progress(double, double)),
             this,
-            SLOT(on_ftp_file_download_progress(qint64,qint64)));
+            SLOT(on_file_transfer_progress(double, double)));
     connect(Log_manager::instance,
             SIGNAL(ftp_file_downloaded(QString)),
             this,
@@ -236,7 +248,18 @@ void Main_window::connect_log_manager()
             SIGNAL(downloadCanceled()),
             this,
             SLOT(on_ftp_download_canceled()));
-
+    connect(Log_manager::instance,
+            SIGNAL(local_file_opened()),
+            this,
+            SLOT(on_local_file_opened()));
+    connect(Log_manager::instance->ftp_model(),
+            SIGNAL(ftpFileListUpdated()),
+            this,
+            SLOT(on_ftp_file_list_updated()));
+    connect(Log_manager::instance,
+            SIGNAL(downloading_file()),
+            this,
+            SLOT(on_downloading_file()));
 }
 
 // ----------------------------------------------------------------------------
@@ -303,6 +326,14 @@ void Main_window::connect_gui()
             SIGNAL(selected_row(QString, QString, QString, QString, QString, QString)),
             this,
             SLOT(on_selected_row(QString, QString, QString, QString, QString, QString)));
+    connect(ui->FTP_radioButton,
+            SIGNAL(toggled(bool)),
+            this,
+            SLOT(on_FTP_radioButton_toggled(bool)));
+    connect(ui->SFTP_radioButton,
+            SIGNAL(toggled(bool)),
+            this,
+            SLOT(on_SFTP_radioButton_toggled(bool)));
     connect(ui->h1_frame,
             SIGNAL(context_menu_event(QContextMenuEvent*)),
             this,
@@ -348,6 +379,10 @@ void Main_window::connect_gui()
             SIGNAL(triggered()),
             this,
             SLOT(on_color_theme_change_E()));
+    connect(ui->ftpFiles_listView,
+            SIGNAL(customContextMenuRequested(const QPoint)),
+            this,
+            SLOT(on_ftpFiles_listView_context_menu(const QPoint)));
 }
 
 // ----------------------------------------------------------------------------
@@ -355,6 +390,7 @@ void Main_window::connect_gui()
 void Main_window::on_ftp_download_canceled()
 {
     ui->ftpDownload_progressBar->setVisible(false);
+    ui->tailFTP_pushButton->setEnabled(false);
 }
 
 // ----------------------------------------------------------------------------
@@ -362,6 +398,7 @@ void Main_window::on_ftp_download_canceled()
 void Main_window::on_client_connected(const QString client_address)
 {
     Q_UNUSED(client_address);
+    ui->tailFTP_pushButton->setEnabled(false);
 }
 
 // ----------------------------------------------------------------------------
@@ -373,7 +410,7 @@ void Main_window::on_ftp_message(const QString &message)
 
 // ----------------------------------------------------------------------------
 
-void Main_window::on_ftp_file_download_progress(qint64 readBytes, qint64 totalBytes)
+void Main_window::on_file_transfer_progress(double readBytes, double totalBytes)
 {
     ui->ftpDownload_progressBar->setVisible(true);
     if((readBytes == 0) && (totalBytes == 0)) {
@@ -383,7 +420,10 @@ void Main_window::on_ftp_file_download_progress(qint64 readBytes, qint64 totalBy
     else {
         ui->ftpDownload_progressBar->setMaximum(100);
         ui->ftpDownload_progressBar->setMinimum(0);
-        ui->ftpDownload_progressBar->setValue(100 * readBytes / totalBytes);
+        double part = (readBytes / totalBytes);
+        int value = part * 100;
+        ui->ftpDownload_progressBar->setValue(value);
+        qDebug(QString("Transfer value: %1, %2, %3").arg(value).arg(readBytes).arg(totalBytes).toStdString().c_str());
     }
 }
 
@@ -392,6 +432,7 @@ void Main_window::on_ftp_file_download_progress(qint64 readBytes, qint64 totalBy
 void Main_window::on_ftp_file_downloaded(const QString &file_name)
 {
     ui->ftpDownload_progressBar->setVisible(false);
+    ui->tailFTP_pushButton->setEnabled(true);
 }
 
 // ----------------------------------------------------------------------------
@@ -715,6 +756,7 @@ void Main_window::on_tail_pushButton_clicked(bool checked)
     if(checked)
     {
         Log_manager::instance->tail_current_file();
+        Log_manager::instance->clear_ftp_tail();
     }
     else
     {
@@ -728,6 +770,13 @@ void Main_window::on_tail_pushButton_clicked(bool checked)
 void Main_window::on_tail_cleared()
 {
     ui->tail_pushButton->setChecked(false);
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_ftp_tail_cleared()
+{
+    ui->tailFTP_pushButton->setChecked(false);
 }
 
 // ----------------------------------------------------------------------------
@@ -747,6 +796,7 @@ void Main_window::on_log_items_not_empty()
     ui->actionAutoscroll->setEnabled(true);
     ui->actionClear_Log_View->setEnabled(true);
     ui->autoscroll_checkBox->setEnabled(true);
+    ui->log_tableView->selectRow(0);
 }
 
 // ----------------------------------------------------------------------------
@@ -918,6 +968,7 @@ void Main_window::write_settings()
     m_settings.setValue(CFTP_PASSWORD, ui->ftpPassword_lineEdit->text());
     m_settings.setValue(CFTP_PORT, ui->ftpPort_lineEdit->text().toInt());
     m_settings.setValue(CFTP_USER, ui->ftpUser_lineEdit->text());
+    m_settings.setValue(CPROTOCOL, m_protocol);
 }
 
 // ----------------------------------------------------------------------------
@@ -934,6 +985,16 @@ void Main_window::read_settings()
     ui->ftpPassword_lineEdit->setText(m_settings.value(CFTP_PASSWORD).toString());
     ui->ftpPort_lineEdit->setText(m_settings.value(CFTP_PORT).toString());
     ui->ftpUser_lineEdit->setText(m_settings.value(CFTP_USER).toString());
+    if (m_settings.value(CPROTOCOL, m_protocol).toInt() == 0)
+    {
+        ui->FTP_radioButton->setChecked(true);
+        m_protocol = FTP;
+    }
+    else
+    {
+        ui->SFTP_radioButton->setChecked(true);
+        m_protocol = SFTP;
+    }
 }
 
 // ----------------------------------------------------------------------------
@@ -948,6 +1009,7 @@ void Main_window::on_actionEnter_filter_triggered()
 void Main_window::on_actionPaste_from_Clipboard_triggered()
 {
     Log_manager::instance->open_log_from_clipboard();
+    Log_manager::instance->clear_ftp_tail();
 }
 
 // ----------------------------------------------------------------------------
@@ -958,17 +1020,105 @@ void Main_window::on_openFTP_pushButton_clicked()
             ui->ftpHost_lineEdit->text(),
             ui->ftpPort_lineEdit->text().toInt(),
             ui->ftpUser_lineEdit->text(),
-            ui->ftpPassword_lineEdit->text());
+            ui->ftpPassword_lineEdit->text(),
+            m_protocol);
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_tailFTP_pushButton_clicked(bool checked)
+{
+    if(checked)
+    {
+        Log_manager::instance->tail_ftp(
+                ui->ftpHost_lineEdit->text(),
+                ui->ftpPort_lineEdit->text().toInt(),
+                ui->ftpUser_lineEdit->text(),
+                ui->ftpPassword_lineEdit->text(),
+                m_protocol);
+    }
+    else
+    {
+        Log_manager::instance->clear_ftp_tail();
+    }
+    set_autoscroll(checked);
+
 }
 
 // ----------------------------------------------------------------------------
 
 void Main_window::on_ftpFiles_listView_activated(QModelIndex index)
 {
-    Log_manager::instance->ftp_model()->openFileFromModelIndex(index);
+    QModelIndex source_index = Log_manager::instance->ftp_proxy_model()->mapToSource(index);
+    Log_manager::instance->ftp_model()->openFileFromModelIndex(source_index);
 }
 
 // ----------------------------------------------------------------------------
+
+void Main_window::on_local_file_opened()
+{
+    ui->tailFTP_pushButton->setEnabled(false);
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_ftp_file_list_updated()
+{
+    qDebug("---ftp_list_updated");
+    Log_manager::instance->ftp_proxy_model()->sort(0);
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_FTP_radioButton_toggled(bool toggled)
+{
+    if (toggled)
+        m_protocol = FTP;
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_SFTP_radioButton_toggled(bool toggled)
+{
+    if (toggled)
+        m_protocol = SFTP;
+}
+
+
+
+void Main_window::on_ftpFiles_listView_context_menu(const QPoint position)
+{
+    /*QMenu context_menu(this);
+    context_menu.addAction(ui->actionSet_log_rotation_file);
+    context_menu.addSeparator();
+    context_menu.addAction(ui->actionDelete_file);
+    context_menu.exec(ui->ftpFiles_listView->mapToGlobal(position));*/
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_actionDelete_file_triggered()
+{
+    qDebug("Delete triggered");
+    QModelIndex source_index = ui->ftpFiles_listView->currentIndex();
+    source_index = Log_manager::instance->ftp_proxy_model()->mapToSource(source_index);
+    QtConcurrent::run(Log_manager::instance->ftp_model(), &ftp_files_model::deleteFileFromModelIndex, source_index);
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_actionSet_log_rotation_file_triggered()
+{
+
+}
+
+// ----------------------------------------------------------------------------
+
+void Main_window::on_downloading_file()
+{
+    ui->tailFTP_pushButton->setChecked(false);
+    ui->tailFTP_pushButton->setEnabled(false);
+}
 
 void Main_window::on_actionSave_to_file_triggered()
 {

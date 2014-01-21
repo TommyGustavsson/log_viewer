@@ -8,6 +8,8 @@
 #include <QSharedPointer>
 #include <log_file_parser.h>
 #include <QStringList>
+#include <QWaitCondition>
+#include "ftp_tail_libcurl.h"
 
 
 namespace Log_viewer
@@ -20,6 +22,7 @@ namespace Log_viewer
     class Tail;
     class Log_format;
     class ftp_files_model;
+	class ftp_files_proxy_model;
 
     enum Socket_type {stTCP, stUDP, stNone};
 
@@ -38,11 +41,14 @@ namespace Log_viewer
         void open_log_files(const QStringList& files);
         void open_log(const QString& file);
         void open_log_from_clipboard();
-        void open_ftp(const QString &host, int port, const QString &userName, const QString &password);
+        void open_ftp(const QString &host, int port, const QString &userName, const QString &password, Connection_type protocol);
+        void tail_ftp(const QString &host, int port, const QString &userName, const QString &password, Connection_type protocol);
         void apply_filter(const QString& text, const QString& file, const QString& module, const QString& index, const QString &origin);
         void clear_filter();
         void tail_current_file();
         void clear_tail();
+        void clear_ftp_tail();
+        void update_transfer_progress(double bytes_done, double bytes_total);
 
         void clear_log_items();
 
@@ -52,6 +58,10 @@ namespace Log_viewer
 
         ftp_files_model* ftp_model() const {
             return m_ftp_files_model;
+        }
+
+        ftp_files_proxy_model* ftp_proxy_model() const {
+            return m_ftp_files_proxy_model;
         }
 
         Clients_model* clients_model() const {
@@ -85,11 +95,16 @@ namespace Log_viewer
         void file_opened(const QString& file);
         void error(const QString& text);
         void tail_cleared();
+        void ftp_tail_cleared();
         void log_items_empty();
         void log_items_not_empty();
         void log_format_selected(const QString& format);
         void log_proxy_filter_cleared();
         void ftp_file_downloaded(const QString& file_name);
+        void local_file_opened();
+        void check_for_log_updated();
+        void file_transfer_progress(double bytes_done, double bytes_total);
+        void downloading_file();
 
     private:
         void signal_log_not_empty();
@@ -108,7 +123,11 @@ namespace Log_viewer
         QString m_current_file;
         qint64 m_current_file_size;
         ftp_files_model* m_ftp_files_model;
+        ftp_files_proxy_model* m_ftp_files_proxy_model;
         QString m_current_log_format_description;
+        QString m_remote_ftp_file_name;
+        QSharedPointer<FTP_tail_libcurl> m_FTP_tail_libcurl;
+        QThread m_ftp_tail_thread;
 
         bool log_items_empty_signaled;
         int m_process_event_counter;
@@ -128,6 +147,8 @@ namespace Log_viewer
         void on_file_neighbor_model_populated();
         void on_filter_cleared();
         void on_ftp_file_downloaded(const QString file_name);
+        void on_downloading_ftp_file(const QString remote_file_name);
+        void on_file_size_updated(long current_file_size);
     };
 }
 

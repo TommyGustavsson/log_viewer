@@ -6,6 +6,7 @@
 #include <QModelIndex>
 #include <QSettings>
 #include <color_theme.h>
+#include <protocol.h>
 
 class QListWidgetItem;
 class QFrame;
@@ -26,6 +27,7 @@ public:
 private slots:
     void on_ftpFiles_listView_activated(QModelIndex index);
     void on_openFTP_pushButton_clicked();
+    void on_tailFTP_pushButton_clicked(bool checked);
     void on_actionPaste_from_Clipboard_triggered();
     void on_actionEnter_filter_triggered();
     void on_apply_highlight_pushButton_clicked();
@@ -35,6 +37,7 @@ private slots:
     void on_neighbor_listView_activated(QModelIndex index);
     void on_server_port_lineEdit_textChanged(QString text);
     void on_tail_cleared();
+    void on_ftp_tail_cleared();
     void on_tail_pushButton_clicked(bool checked);
     void on_log_tableView_customContextMenuRequested(QPoint pos);
     void on_highlight_regex_checkBox_clicked(bool checked);
@@ -75,12 +78,19 @@ private slots:
     void on_color_theme_change_C();
     void on_color_theme_change_D();
     void on_color_theme_change_E();
-    void on_ftp_file_download_progress(qint64 readBytes, qint64 totalBytes);
+    void on_file_transfer_progress(double bytes_done, double bytes_total);
     void on_ftp_file_downloaded(const QString &file_name);
     void on_ftp_message(const QString &message);
-    void on_ftp_download_canceled();    
-
-    void on_actionSave_to_file_triggered();
+    void on_ftp_download_canceled();
+    void on_local_file_opened();
+    void on_ftp_file_list_updated();
+    void on_FTP_radioButton_toggled(bool);
+    void on_SFTP_radioButton_toggled(bool);
+    void on_ftpFiles_listView_context_menu(const QPoint position);
+    void on_actionDelete_file_triggered();
+    void on_actionSet_log_rotation_file_triggered();
+    void on_downloading_file();
+	void on_actionSave_to_file_triggered();
 
 private:
     void closeEvent(QCloseEvent *);
@@ -106,6 +116,7 @@ private:
     QString m_unformated_text;
     QList<Color_theme> m_themes;
     int m_theme_index;
+    Log_viewer::Connection_type m_protocol;
 };
 
 

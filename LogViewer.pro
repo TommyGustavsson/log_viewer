@@ -10,6 +10,14 @@ QT       += core gui\
 TARGET = LogViewer
 TEMPLATE = app
 
+QMAKE_CXXFLAGS +=   -DCURL_STATICLIB \
+                    #-DQT_NO_DEBUG_OUTPUT
+
+QMAKE_LFLAGS += -static-libgcc
+
+INCLUDEPATH += curl-7.25.0-devel-mingw32/include/
+LIBS        += -L"$$PWD/Redist" -lcurl-4 -lwldap32 -lws2_32
+
 SOURCES += main.cpp\
         main_window.cpp \
     start_stop_buffer.cpp \
@@ -34,7 +42,9 @@ SOURCES += main.cpp\
     log_item_preview_textedit.cpp \
     color_theme.cpp \
     colored_frame.cpp \
-    ftp_files_model.cpp
+    ftp_files_model.cpp \
+    ftp_tail_libcurl.cpp \
+    ftp_files_proxy_model.cpp
 
 HEADERS  += main_window.h \
     start_stop_buffer.h \
@@ -64,7 +74,10 @@ HEADERS  += main_window.h \
     log_item_preview_textedit.h \
     color_theme.h \
     colored_frame.h \
-    ftp_files_model.h
+    ftp_files_model.h \
+    ftp_tail_libcurl.h \
+    ftp_files_proxy_model.h \
+    protocol.h
 
 FORMS    += main_window.ui
 
@@ -76,9 +89,12 @@ OTHER_FILES += \
     Resources/rightarrow.png \
     Resources/leftarrow.png \
     Resources/downarrow.png \
-    Resources/skin.css
+    Resources/skin.css \
+    Resources/app.rc \
+    Resources/app.ico
 
 RESOURCES += \
     resources.qrc
 
+win32:RC_FILE = Resources/app.rc
 
