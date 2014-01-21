@@ -58,6 +58,9 @@ namespace Log_viewer
 
         int get_column_index_from_type(Column_type type);
 
+        // save to csv file
+        void save_to_file(const QString &file_name);
+
     private:
         QList< QSharedPointer<Log_item> > m_items;
         Color_list m_highlight_text_list;

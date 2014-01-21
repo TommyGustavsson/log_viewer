@@ -968,4 +968,17 @@ void Main_window::on_ftpFiles_listView_activated(QModelIndex index)
     Log_manager::instance->ftp_model()->openFileFromModelIndex(index);
 }
 
+// ----------------------------------------------------------------------------
 
+void Main_window::on_actionSave_to_file_triggered()
+{
+    QString file_name = QFileDialog::getSaveFileName(this,
+         tr("Save file as"), "/home", tr("CSV file (*.txt)"));
+
+    if (file_name.isNull())
+    {
+        return;
+    }
+
+    Log_manager::instance->log_items_model()->save_to_file(file_name);
+}

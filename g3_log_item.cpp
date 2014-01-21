@@ -23,7 +23,7 @@ namespace Log_viewer
         // 9 = empty
         QString tmp = log_item_list[10];
         tmp.remove(0, 1);
-        m_line = tmp;
+        m_line =tmp.trimmed(); // in G3 this has a new line char at the end
         m_type = Log_type_from_string(log_item_list[11]);
         for(int i = 12; i < log_item_list.count() - 1; i++)
             m_text.append(log_item_list[i]);

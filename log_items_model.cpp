@@ -1,5 +1,6 @@
 #include <log_items_model.h>
 #include <QBrush>
+#include <QFile>
 
 namespace Log_viewer
 {
@@ -10,6 +11,27 @@ namespace Log_viewer
             m_use_regex_for_highlight(false)
     {
 
+    }
+
+    // ----------------------------------------------------------------------------
+
+    void Log_items_model::save_to_file(const QString &file_name)
+    {
+        QFile file(file_name);
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            return;
+        }
+
+        QTextStream out(&file);
+
+        foreach(QSharedPointer<Log_item> item, m_items)
+        {
+            QString csv_string = item->get_as_string("\t");
+            out << csv_string << "\n";
+        }
+
+        file.close();
     }
 
     // ----------------------------------------------------------------------------

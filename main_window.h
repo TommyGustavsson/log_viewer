@@ -80,6 +80,8 @@ private slots:
     void on_ftp_message(const QString &message);
     void on_ftp_download_canceled();    
 
+    void on_actionSave_to_file_triggered();
+
 private:
     void closeEvent(QCloseEvent *);
     void read_settings();
