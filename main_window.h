@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <color_theme.h>
 #include <protocol.h>
+#include <log_format.h>
 
 class QListWidgetItem;
 class QFrame;

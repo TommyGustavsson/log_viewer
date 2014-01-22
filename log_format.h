@@ -12,6 +12,8 @@
 namespace Log_viewer
 {
 
+    typedef QSharedPointer<Log_item> Log_item_ptr;
+
     class Log_format : public QObject
     {
         Q_OBJECT
@@ -27,7 +29,7 @@ namespace Log_viewer
         virtual ~Log_format() {}
 
     signals:
-        void log_found(QSharedPointer<Log_item> item);
+        void log_found(Log_item_ptr item);
 
     public slots:
         void on_line_found(const QString value, const QString origin);
@@ -35,7 +37,7 @@ namespace Log_viewer
         // Hide copy constructor
         Log_format(const Log_format&) : QObject(0) {}
 
-        virtual QSharedPointer<Log_item> create_log_item(const QString value, const QString origin) const = 0;
+        virtual Log_item_ptr create_log_item(const QString value, const QString origin) const = 0;
         QSharedPointer<Start_stop_buffer> m_start_stop_buffer;
     };
 }

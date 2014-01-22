@@ -204,7 +204,7 @@ namespace Log_viewer
         QString url = QString("%1://%2:%3@%4:%5/%6").arg(protocol_string).arg(userName).arg(password).arg(host).arg(port).arg(m_remote_ftp_file_name);
 
         disconnect(m_file_parser.get_current_log_format().data(),
-                   SIGNAL(log_found(QSharedPointer<Log_item>)),
+                   SIGNAL(log_found(Log_item_ptr)),
                    0,
                    0);
 
@@ -251,6 +251,7 @@ namespace Log_viewer
     {
         close();
         clear_tail();
+        clear_ftp_tail();
         clear_log_items();
         m_socket_type = socket_type;
 

@@ -34,13 +34,13 @@ namespace Log_viewer
         void file_open_progress(int progress);
 
     private slots:
-        void on_log_found(QSharedPointer<Log_item> item);
+        void on_log_found(Log_item_ptr item);
 
     private:
         bool get_log_format(const QString line);
         void add_file_info();
         void add_statistics();
-        void calculate_statistics(QSharedPointer<Log_item> item);
+        void calculate_statistics(Log_item_ptr item);
         void clear_statistics();
         QString format_file_size(qint64 file_size);
 

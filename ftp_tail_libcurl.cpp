@@ -34,9 +34,9 @@ namespace Log_viewer
         log_format = log_format_used;
 
         connect(log_format.data(),
-                SIGNAL(log_found(QSharedPointer<Log_item>)),
+                SIGNAL(log_found(Log_item_ptr)),
                 this,
-                SLOT(on_log_found(QSharedPointer<Log_item>)));
+                SLOT(on_log_found(Log_item_ptr)));
     }
 
     FTP_tail_libcurl::~FTP_tail_libcurl()
@@ -210,7 +210,7 @@ namespace Log_viewer
         emit file_size_updated(m_current_file_pos);
     }
 
-    void FTP_tail_libcurl::on_log_found(QSharedPointer<Log_item> item)
+    void FTP_tail_libcurl::on_log_found(Log_item_ptr item)
     {
         m_log_items.push_back(item);
         // calculate_statistics(item);

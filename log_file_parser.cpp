@@ -25,9 +25,9 @@ namespace Log_viewer
         m_log_format = Log_format_factory::instance->create(line, m_file_name);
 
         connect(m_log_format.data(),
-                SIGNAL(log_found(QSharedPointer<Log_item>)),
+                SIGNAL(log_found(Log_item_ptr)),
                 this,
-                SLOT(on_log_found(QSharedPointer<Log_item>)));
+                SLOT(on_log_found(Log_item_ptr)));
         emit format_selected(m_log_format);
 
         return true;
@@ -103,12 +103,12 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Log_file_parser::on_log_found(QSharedPointer<Log_item> item)
+    void Log_file_parser::on_log_found(Log_item_ptr item)
     {
         m_log_items.push_back(item);
         // calculate_statistics(item);
 
-        if((m_opening == false) || (m_log_items.size() > 1000))
+        if((m_opening == false) || (m_log_items.size() >= 1000))
         {
             emit logs_found(m_log_items);
             m_log_items.clear();
@@ -166,7 +166,7 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Log_file_parser::calculate_statistics(QSharedPointer<Log_item> item)
+    void Log_file_parser::calculate_statistics(Log_item_ptr item)
     {
         switch(item->get_log_type())
         {

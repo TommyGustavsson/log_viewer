@@ -61,7 +61,7 @@ namespace Log_viewer
 
     private slots:
         void check_for_log_updated();
-        void on_log_found(QSharedPointer<Log_item> item);
+        void on_log_found(Log_item_ptr item);
     };
 }
 #endif // FTP_TAIL_LIBCURL_H

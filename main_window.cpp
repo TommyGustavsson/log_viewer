@@ -80,7 +80,7 @@ Main_window::Main_window(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //qRegisterMetaType<log_item_ptr>("log_item_ptr");
+    qRegisterMetaType<Log_item_ptr>("Log_item_ptr");
     qRegisterMetaType<Log_file_parser::Log_items>("Log_file_parser::Log_items");
 
     connect_log_manager();
@@ -188,10 +188,6 @@ void Main_window::connect_log_manager()
             SIGNAL(client_disconnected(const QString)),
             this,
             SLOT(on_client_disconnected(const QString)));
-    connect(Log_manager::instance,
-            SIGNAL(client_log_found()),
-            this,
-            SLOT(on_client_log_found()));
     connect(Log_manager::instance->log_items_model(),
             SIGNAL(rowsInserted(QModelIndex, int, int)),
             this,
