@@ -12,8 +12,10 @@ Features
 * Platform independent.
 * Open and view logs in a table view. Supports drag n' drop.
 * When a file has been opened view its neighbor files directly in a list for easy access.
-* Tail log file.
-* Use built-in log server to listen to log clients using sockets.
+* Tail local log file.
+* FTP/SFTP support with option to tail remote files.
+* Save logs to tab separated file.
+* Use built-in log server to listen to log clients using TCP or UDP.
 * Table color codes for log entry types.
 * Highlight text with color, simple text or use regular expression.
 * Fast filter on text, simple text or use regular expression.
