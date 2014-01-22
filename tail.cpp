@@ -72,7 +72,7 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Tail::on_log_found(QSharedPointer<Log_item> item)
+    void Tail::on_log_found(Log_item_ptr item)
     {
         emit tail_log_found(item);
     }

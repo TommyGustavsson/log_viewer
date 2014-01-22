@@ -51,7 +51,7 @@ namespace Log_viewer
         // Hide copy constructor
         Unknown_log_format(const Unknown_log_format&) : Log_format() {}
 
-        QSharedPointer<Log_item> create_log_item(const QString value, const QString) const {
+        Log_item_ptr create_log_item(const QString value, const QString) const {
             return QSharedPointer<Plain_text_log_item>(new Plain_text_log_item(value));
         }
 

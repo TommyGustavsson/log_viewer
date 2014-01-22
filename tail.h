@@ -21,13 +21,13 @@ namespace Log_viewer
         virtual ~Tail() {}
 
     signals:
-        void tail_log_found(QSharedPointer<Log_item> item);
+        void tail_log_found(Log_item_ptr item);
         void tail_empty();
         void tail_failed(const QString& message);
 
     private slots:
         void on_file_changed(const QString& file);
-        void on_log_found(QSharedPointer<Log_item> item);
+        void on_log_found(Log_item_ptr item);
 
     private:
         // Hide copy constructor

@@ -114,7 +114,7 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Log_manager::on_log_found(QSharedPointer<Log_item> log_item)
+    void Log_manager::on_log_found(Log_item_ptr log_item)
     {
         m_log_items_model->add(log_item);
         signal_log_not_empty();
@@ -149,9 +149,9 @@ namespace Log_viewer
 
         m_clients_model->add(client);
         connect(client.data(),
-                SIGNAL(log_found(QSharedPointer<Log_item>)),
+                SIGNAL(log_found(Log_item_ptr)),
                 this,
-                SLOT(on_log_found(QSharedPointer<Log_item>)));
+                SLOT(on_log_found(Log_item_ptr)));
         connect(client.data(),
                 SIGNAL(disconnected(const Log_client*)),
                 this,
@@ -174,9 +174,9 @@ namespace Log_viewer
 
             m_clients_model->add(client);
             connect(client.data(),
-                    SIGNAL(log_found(QSharedPointer<Log_item>)),
+                    SIGNAL(log_found(Log_item_ptr)),
                     this,
-                    SLOT(on_log_found(QSharedPointer<Log_item>)));
+                    SLOT(on_log_found(Log_item_ptr)));
             connect(client.data(),
                     SIGNAL(disconnected(const Log_client*)),
                     this,
@@ -376,9 +376,9 @@ namespace Log_viewer
                                                m_file_parser.get_current_log_format()));
 
         connect(m_tail.data(),
-                SIGNAL(tail_log_found(QSharedPointer<Log_item>)),
+                SIGNAL(tail_log_found(Log_item_ptr)),
                 this,
-                SLOT(on_tail_log_found(QSharedPointer<Log_item>)));
+                SLOT(on_tail_log_found(Log_item_ptr)));
         connect(m_tail.data(),
                 SIGNAL(tail_empty()),
                 this,
@@ -411,7 +411,7 @@ namespace Log_viewer
 
     // ----------------------------------------------------------------------------
 
-    void Log_manager::on_tail_log_found(QSharedPointer<Log_item> item)
+    void Log_manager::on_tail_log_found(Log_item_ptr item)
     {
         m_log_items_model->add(item);
     }

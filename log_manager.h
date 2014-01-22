@@ -135,12 +135,12 @@ namespace Log_viewer
 
     private slots:
         void on_client_connected();
-        void on_log_found(QSharedPointer<Log_item>);
+        void on_log_found(Log_item_ptr);
         void on_logs_found(const Log_file_parser::Log_items& items);
         void on_client_disconnected(const Log_client* client);
         void on_file_opened(const QString& file, qint64 size);
         void on_file_parser_error(const QString& text);
-        void on_tail_log_found(QSharedPointer<Log_item> item);
+        void on_tail_log_found(Log_item_ptr item);
         void on_tail_empty();
         void on_tail_failed(const QString& message);
         void on_log_format_selected(QSharedPointer<Log_format> format);

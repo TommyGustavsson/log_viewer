@@ -33,11 +33,11 @@ namespace Log_viewer
     private slots:
         void on_client_write();
         void on_client_disconnected();
-        void on_log_found(QSharedPointer<Log_item> item);
+        void on_log_found(Log_item_ptr item);
 
     signals:
         void disconnected(const Log_client* client);
-        void log_found(QSharedPointer<Log_item> log_item);
+        void log_found(Log_item_ptr log_item);
         void format_selected(QSharedPointer<Log_format> format);
 
     private:

@@ -54,9 +54,9 @@ namespace Log_viewer
         }
 
         connect(m_log_format.data(),
-                SIGNAL(log_found(QSharedPointer<Log_item>)),
+                SIGNAL(log_found(Log_item_ptr)),
                 this,
-                SLOT(on_log_found(QSharedPointer<Log_item>)));
+                SLOT(on_log_found(Log_item_ptr)));
         emit format_selected(m_log_format);
 
         return true;

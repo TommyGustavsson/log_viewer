@@ -71,7 +71,7 @@ namespace Log_viewer
         // Hide copy constructor
         NRG_legacy_log_format(const NRG_legacy_log_format&) : Log_format() {}
 
-        QSharedPointer<Log_item> create_log_item(const QString value, const QString origin) const {
+        Log_item_ptr create_log_item(const QString value, const QString origin) const {
             return QSharedPointer<NRG_legacy_log_item>(new NRG_legacy_log_item(value, m_separator, origin));
         }
 
