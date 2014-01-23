@@ -27,7 +27,7 @@ namespace Log_viewer
         m_type = Log_type_from_string(log_item_list[11]);
         for(int i = 12; i < log_item_list.count() - 1; i++)
             m_text.append(log_item_list[i]);
-        m_origin = origin;
+        m_origin = log_item_list[0]; //origin;
     }
 
     // ----------------------------------------------------------------------------
